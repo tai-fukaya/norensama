@@ -1,10 +1,12 @@
 #-*-coding:utf-8-*-
+import random
 import threading
 import time
 
-import _secretkey as config
+import _secret as config
 from speaker import Speaker
 from twitter import Twitter
+from action import Yureyure
 
 class Norensama(object):
 
@@ -16,14 +18,21 @@ class Norensama(object):
             "access_token": config.TWITTER_ACCESS_TOKEN,
             "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET
         })
+        self._actions = [
+            Yureyure(self._speaker, self._twitter)
+        ]
     
     def main(self):
-        start = time.time()
         print("main")
-        self._speaker.say("yureta")
-        self._twitter.tweet("ゆれた")
-        print(time.time() - start)
-        self._speaker.finish()
+        while True:
+            data = {}
+            runable_action = [x for x in self._actions if x.check(data)]
+            if runable_action:
+                start = time.time()
+                idx = int(random.random()*len(runable_action))
+                runable_action[idx].run()
+                print(time.time() - start)
+            time.sleep(1.)
 
 if __name__ == "__main__":
     noren = Norensama()
