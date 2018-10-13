@@ -1,51 +1,21 @@
+#-*-coding:utf-8-*-
+import threading
+import time
 
-"""
-のれん様プログラム
-# Sensor
-センサーにデータが欲しいと伝える
-センサーから、データを受け取る
+from speaker import Speaker
 
-# Speaker
-指定されたファイルを再生する
+class Norensama(object):
 
-# Tweet
-指定された文言を投稿する
-RTがあったら、教える
+    def __init__(self):
+        self._speaker = Speaker()
+    
+    def main(self):
+        start = time.time()
+        print("main")
+        self._speaker.say("yureta")
+        print(time.time() - start)
+        self._speaker.finish()
 
-# Weather
-一定期間ごとに、天気予報を見に行く
-
-# HumanIntelligence
-サーバーに強制実行するものがないか見に行く
-
-# StatusManager
-時間を教える
-センサー情報を教える
-天気情報を教える
-強制実行するセリフを教える
-
-# Action
-起動する条件にあったら、セリフとツイートをする
-起動したら、しばらく休む
-
-# NorenSama
-定期的にStatusManagerに情報を教えてもらう
-定期的にActionに起動するかどうか聞いて回る
-起動したものがあれば、しばらく休む
-RTがあったときに、起動中のActionが終わるのを待って、チロリンと鳴らす
-"""
-
-"""
-ディスプレイプログラム
-# Updater
-ツイートの更新を取得する
-取得したら、再描画
-"""
-
-"""
-人力AI
-# ForceAction
-強制的に実行するアクションを選んで、サーバーに送る
-# ForceLine
-アクションを指定せずに、喋る文章を選ぶ、サーバーに送る
-"""
+if __name__ == "__main__":
+    noren = Norensama()
+    noren.main()

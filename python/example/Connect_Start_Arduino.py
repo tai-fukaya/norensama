@@ -29,7 +29,9 @@ def UsbStart(ArdName):
 
     #arduinoの名前とポートをリストで対応
     for i in range(len(USBinfo)):
-        ArdName[commands.getoutput("cat /dev/%s" %USBinfo[i])]=UsbSerial[i]
+        opt = commands.getoutput("cat /dev/%s" %USBinfo[i])
+        print(opt)
+        ArdName[opt]=UsbSerial[i]
         UsbSerial[i].write("#ok#")      #LOOPに移させる
 
     return ArdName
