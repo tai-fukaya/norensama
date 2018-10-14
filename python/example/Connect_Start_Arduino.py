@@ -32,7 +32,8 @@ def UsbStart(ArdName):
         opt = commands.getoutput("cat /dev/%s" %USBinfo[i])
         print(opt)
         ArdName[opt]=UsbSerial[i]
-        UsbSerial[i].write("#ok#")      #LOOPに移させる
+        # LOOPに移させる
+        UsbSerial[i].write("#ok#")
 
     return ArdName
 
