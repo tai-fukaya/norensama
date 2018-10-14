@@ -4,9 +4,14 @@ import threading
 import time
 
 import _secret as config
+# StatusManager
+from status import StatusManager
+
 from speaker import Speaker
 from twitter import Twitter
+# Action
 from action import Yureyure
+
 
 class Norensama(object):
 
@@ -18,14 +23,18 @@ class Norensama(object):
             "access_token": config.TWITTER_ACCESS_TOKEN,
             "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET
         })
+        self._status = StatusManager()
         self._actions = [
             Yureyure(self._speaker, self._twitter)
         ]
     
     def main(self):
         print("main")
+        status_thread = threading.Thread(target=self._status.update)
+        status_thread.daemon = True
+        status_thread.start()
         while True:
-            data = {}
+            data = self._status.get_data()
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
                 start = time.time()
