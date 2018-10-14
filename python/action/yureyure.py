@@ -13,3 +13,4 @@ class Yureyure(ActionBase):
         self._sp.say("yureta")
         time.sleep(1.)
         self._last_running_time = time.time()
+        
