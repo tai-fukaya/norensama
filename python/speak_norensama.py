@@ -10,7 +10,7 @@ from status import StatusManager
 from speaker import Speaker
 from twitter import Twitter
 # Action
-from action import Yureyure
+from action import Yureyure, Hello
 
 
 class Norensama(object):
@@ -25,7 +25,8 @@ class Norensama(object):
         })
         self._status = StatusManager()
         self._actions = [
-            Yureyure(self._speaker, self._twitter)
+            Yureyure(self._speaker, self._twitter),
+            Hello(self._speaker, self._twitter)
         ]
     
     def main(self):
@@ -39,7 +40,7 @@ class Norensama(object):
             if runable_action:
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
-                runable_action[idx].run()
+                runable_action[idx].run({})
                 print(time.time() - start)
             time.sleep(1.)
 

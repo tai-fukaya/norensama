@@ -16,6 +16,6 @@ class ActionBase(object):
         """ 実行するかどうか """
         return data["now"] - self._last_running_time > self.REST_DURATION
         
-    def run(self):
+    def run(self, data):
         time.sleep(1.)
         self._last_running_time = time.time()
