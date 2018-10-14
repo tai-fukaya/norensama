@@ -13,16 +13,14 @@ class SerialSensorManager(object):
         # for Mac
         usb_list = commands.getoutput('ls /dev | grep tty.usbmodem*').split('\n')
         print(usb_list)
-        # TODO refactor
         # Open port
-        serial_list = []
-        for i in range(len(usb_list)):
-            serial_list.append(serial.Serial("/dev/%s"%usb_list[i]))
+        serial_list = [serial.Serial("/dev/%s"%usb) for _, usb in enumerate(usb_list)]
         time.sleep(2.)
         # Ask name
         for i, ser in enumerate(serial_list):
             ser.write("#Tell_Me_Your_Name#")
         time.sleep(2.)
+        
         self._sensors = {}
         for i, ser in enumerate(serial_list):
             opt = commands.getoutput("cat /dev/%s"%usb_list[i])
