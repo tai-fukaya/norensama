@@ -9,6 +9,7 @@ from status import StatusManager
 
 from speaker import Speaker
 from twitter import Twitter
+from ifttt import Ifttt
 # Action
 from action import Yureyure, Hello
 
@@ -23,10 +24,14 @@ class Norensama(object):
             "access_token": config.TWITTER_ACCESS_TOKEN,
             "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET
         })
+        self._ifttt = Ifttt({
+            "api_key": config.IFTTT_APIKEY
+        })
+
         self._status = StatusManager()
         self._actions = [
-            Yureyure(self._speaker, self._twitter),
-            Hello(self._speaker, self._twitter)
+            Yureyure(self._speaker, self._ifttt),
+            Hello(self._speaker, self._ifttt)
         ]
     
     def main(self):

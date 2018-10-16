@@ -2,13 +2,14 @@
 ## Sensor
 センサーにデータが欲しいと伝える
 センサーから、データを受け取る
-Serial, obniz, arduino w/esp
+x Serial
+obniz, arduino w/esp
 
 ## Speaker
 x 指定されたファイルを再生する
 
 ## Tweet
-.. 指定された文言を投稿する
+x 指定された文言を投稿する
 RTがあったら、教える
 
 ## Weather
@@ -19,7 +20,7 @@ RTがあったら、教える
 
 ## StatusManager
 x 時間を教える
-センサー情報を教える
+x センサー情報を教える
 天気情報を教える
 強制実行するセリフを教える
 
@@ -44,3 +45,6 @@ RTがあったときに、起動中のActionが終わるのを待って、チロ
 
 ## ForceLine
 アクションを指定せずに、喋る文章を選ぶ、サーバーに送る
+
+# 音声合成APIについて
+http://voicetext.jp/

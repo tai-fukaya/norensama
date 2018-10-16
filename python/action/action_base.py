@@ -6,9 +6,9 @@ class ActionBase(object):
     # 一定期間（秒）、やすむ
     REST_DURATION = 10.
 
-    def __init__(self, speaker, twitter):
+    def __init__(self, speaker, ifttt):
         self._sp = speaker
-        self._tw = twitter
+        self._ift = ifttt
 
         self._last_running_time = 0.
 
