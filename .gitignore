@@ -113,3 +113,6 @@ dmypy.json
 # apikey
 /_secret
 _secret*
+
+# node.js
+node_modules/

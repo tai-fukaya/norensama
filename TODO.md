@@ -3,7 +3,18 @@
 センサーにデータが欲しいと伝える
 センサーから、データを受け取る
 x Serial
-obniz, arduino w/esp
+x obniz
+espのみ
+raspberry pi
+
+https://qiita.com/ie4/items/ae850cdb2c617f3fd6af
+https://qiita.com/juosugi/items/66f25cc60734d17bc7f0
+http://arakaze.ready.jp/archives/4278
+https://www.slideshare.net/lemiyachi/espwroom02
+→よくわからん
+
+### obniz
+受け取ったセンサー情報をOSCでサーバーに送信する
 
 ## Speaker
 x 指定されたファイルを再生する
@@ -11,6 +22,13 @@ x 指定されたファイルを再生する
 ## Tweet
 x 指定された文言を投稿する
 RTがあったら、教える
+
+## IFTTT
+インスタグラムの投稿があったら
+ツイッターでフォローされたら
+ツイッターでRTされたら
+ツイッターでメンションされたら
+フォロワーの数はできる？
 
 ## Weather
 一定期間ごとに、天気予報を見に行く
