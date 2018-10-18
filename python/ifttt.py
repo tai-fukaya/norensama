@@ -15,4 +15,5 @@ class Ifttt(object):
         }
         url = "https://maker.ifttt.com/trigger/{}/with/key/{}".format("noren_speaked", self.api_key)
         response = requests.post(url, data=payload)
+        print(response.status_code, response.text)
         return response

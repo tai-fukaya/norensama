@@ -11,7 +11,7 @@ from speaker import Speaker
 from twitter import Twitter
 from ifttt import Ifttt
 # Action
-from action import Yureyure, Hello
+from action import Yureyure, Hello, Joke
 
 
 class Norensama(object):
@@ -31,7 +31,8 @@ class Norensama(object):
         self._status = StatusManager()
         self._actions = [
             Yureyure(self._speaker, self._ifttt),
-            Hello(self._speaker, self._ifttt)
+            Hello(self._speaker, self._ifttt),
+            Joke(self._speaker, self._ifttt)
         ]
     
     def main(self):
@@ -39,8 +40,26 @@ class Norensama(object):
         status_thread = threading.Thread(target=self._status.update)
         status_thread.daemon = True
         status_thread.start()
+
         while True:
             data = self._status.get_data()
+            # 10分に一回、ゆれの音を決める
+
+            # 1分間は、揺れに合わせて、ゆらゆら言っている
+            start = time.time()
+            while time.time() - start < 10.:
+                if random.random() > .4:
+                    self._speaker.say("yurayura_v80")
+                elif random.random() > .3:
+                    self._speaker.say("yurayura_v100")
+                else:
+                    self._speaker.say("yurayurayurayuura_v100")
+                # 強制起動もここでやる
+                
+                # RT、フォロー、された場合は、ここでいう
+
+                time.sleep(5.)
+            # このタイミングで、反応があると、ちがうこともいう
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
                 start = time.time()

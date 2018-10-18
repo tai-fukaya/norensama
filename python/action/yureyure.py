@@ -15,7 +15,7 @@ class Yureyure(ActionBase):
             and abs(data.get("accelerometer").acc_z) > .5
 
     def run(self, data):
-        self._ift.tweet("ゆれた")
-        self._sp.say("yureta")
+        self._ift.tweet("へっくし")
+        self._sp.say("achoo")
         time.sleep(1.)
         self._last_running_time = time.time()

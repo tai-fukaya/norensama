@@ -38,7 +38,7 @@ class StatusManager(object):
         print('Client {}:{} has left.'.format(client['address'][0], client['address'][1]))
 
     def message_received(self, client, server, message):
-        print(message)
+        # print(message)
         data = message.split(",")
         if data[0] == 'motion':
             motion_sensor_id = int(data[2])
