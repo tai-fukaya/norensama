@@ -4,9 +4,12 @@
  */
 require('date-utils');
 const osc = require('node-osc');
+const WebSocketClient = require('websocket').w3cwebsocket;
 const Obniz = require('obniz');
 
-let oscClient = osc.Client('127.0.0.1', 57120);
+// python のoscモジュールがいいかんじのがないので、とりあえずwebsocket
+// let oscClient = osc.Client('127.0.0.1', 6700);
+let client = new WebSocketClient('ws://localhost:6700');
 
 // motion-sensor
 let mo0 = new Obniz("8894-3916");
@@ -27,6 +30,9 @@ mo0.onconnect = async function () {
                     timer = null;
                 } else {
                     console.log("start", pos);
+                    if (client.readyState !== client.CLOSED) {
+                        client.send(["motion", 0, pos, "start"].join(","));
+                    }
                     // oscClient.send("/motion", [0, pos, "start"].join(","));
                     motionSensorStatuses[pos] = "MOVING";
                     mo0.display.clear();
@@ -36,6 +42,9 @@ mo0.onconnect = async function () {
                 }
                 timer = setTimeout(() => {
                     console.log("stop", pos);
+                    if (client.readyState !== client.CLOSED) {
+                        client.send(["motion", 0, pos, "stop"].join(","));
+                    }
                     // oscClient.send("/motion", [0, pos, "stop"].join(","));
                     motionSensorStatuses[pos] = "";
                     mo0.display.clear();
@@ -96,6 +105,9 @@ acc0.repeat(async function() {
     averageAccValues.y /= count;
     averageAccValues.z /= count;
 
+    if (client.readyState !== client.CLOSED) {
+        client.send(["acc", 0, averageAccValues.x, averageAccValues.y, averageAccValues.z].join(","));
+    }
     // console.log(averageAccValues.x.toFixed(3), averageAccValues.y.toFixed(3), averageAccValues.z.toFixed(3));
     // oscClient.send("/acc", [0, averageAccValues.x, averageAccValues.y, averageAccValues.z].join(","))
 });

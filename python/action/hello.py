@@ -12,7 +12,7 @@ class Hello(ActionBase):
 
     def check(self, data):
         mot = data.get("motions")
-        return len([x for x in mot if x == 1]) > 10 
+        return sum(mot) > 0
 
     def run(self, data):
         self._ift.tweet("おはよう")
