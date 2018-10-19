@@ -8,7 +8,6 @@ import _secret as config
 from status import StatusManager
 
 from speaker import Speaker
-from twitter import Twitter
 from ifttt import Ifttt
 # Action
 from action import Yureyure, Hello, Joke
@@ -18,21 +17,15 @@ class Norensama(object):
 
     def __init__(self):
         self._speaker = Speaker()
-        self._twitter = Twitter({
-            "consumer_key": config.TWITTER_CONSUMER_KEY,
-            "consumer_secret": config.TWITTER_CONSUMER_SECRET,
-            "access_token": config.TWITTER_ACCESS_TOKEN,
-            "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET
-        })
         self._ifttt = Ifttt({
             "api_key": config.IFTTT_APIKEY
         })
 
         self._status = StatusManager()
         self._actions = [
-            Yureyure(self._speaker, self._ifttt),
-            Hello(self._speaker, self._ifttt),
-            Joke(self._speaker, self._ifttt)
+            Yureyure(self._speaker),
+            Hello(self._speaker),
+            Joke(self._speaker)
         ]
     
     def main(self):
@@ -44,6 +37,7 @@ class Norensama(object):
         while True:
             data = self._status.get_data()
             # 10分に一回、ゆれの音を決める
+            # その音で、IFTTT
 
             # 1分間は、揺れに合わせて、ゆらゆら言っている
             start = time.time()
@@ -64,7 +58,9 @@ class Norensama(object):
             if runable_action:
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
-                runable_action[idx].run({})
+                message = runable_action[idx].run({})
+                # １時間発言していないキーワードだったら、IFTTT
+
                 print(time.time() - start)
             time.sleep(1.)
 

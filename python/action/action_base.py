@@ -6,9 +6,8 @@ class ActionBase(object):
     # 一定期間（秒）、やすむ
     REST_DURATION = 10.
 
-    def __init__(self, speaker, ifttt):
+    def __init__(self, speaker):
         self._sp = speaker
-        self._ift = ifttt
 
         self._last_running_time = 0.
 
@@ -19,3 +18,4 @@ class ActionBase(object):
     def run(self, data):
         time.sleep(1.)
         self._last_running_time = time.time()
+        return None

@@ -108,6 +108,7 @@ acc0.repeat(async function() {
     if (client.readyState !== client.CLOSED) {
         client.send(["acc", 0, averageAccValues.x, averageAccValues.y, averageAccValues.z].join(","));
     }
+    // console.log((new Date()).toFormat('YYYYMMDDHH24MISS'));
     // console.log(averageAccValues.x.toFixed(3), averageAccValues.y.toFixed(3), averageAccValues.z.toFixed(3));
     // oscClient.send("/acc", [0, averageAccValues.x, averageAccValues.y, averageAccValues.z].join(","))
 });
