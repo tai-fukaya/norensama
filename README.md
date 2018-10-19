@@ -6,6 +6,16 @@ Future Noren Exhibition
 at Nihonbashi, Tokyo, Japan  
 https://nihonbashi-beta.jp/
 
+# How to install
+```
+cd nodejs
+npm install
+cd ../python
+apt update
+apt install python-pyaudio
+pip install -r requirements.txt
+```
+
 # Credit
 Ryosuke Fujiki  
 Taiji Fukaya  

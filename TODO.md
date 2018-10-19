@@ -14,7 +14,7 @@ https://www.slideshare.net/lemiyachi/espwroom02
 →よくわからん
 
 ### obniz
-受け取ったセンサー情報をOSCでサーバーに送信する
+x 受け取ったセンサー情報をOSCでサーバーに送信する
 
 ## Speaker
 x 指定されたファイルを再生する
@@ -47,7 +47,7 @@ x 起動する条件にあったら、セリフとツイートをする
 x 起動したら、しばらく休む
 
 ## NorenSama
-定期的にStatusManagerに情報を教えてもらう
+x 定期的にStatusManagerに情報を教えてもらう
 x 定期的にActionに起動するかどうか聞いて回る
 x 起動したものがあれば、しばらく休む
 RTがあったときに、起動中のActionが終わるのを待って、チロリンと鳴らす
