@@ -20,3 +20,4 @@ class Yureyure(ActionBase):
         self._last_running_time = time.time()
 
         return "へっくし"
+        
