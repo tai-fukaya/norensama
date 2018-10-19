@@ -40,20 +40,22 @@ class Norensama(object):
             # 10分に一回、ゆれの音を決める
             # その音で、IFTTT
 
-            # 1分間は、揺れに合わせて、ゆらゆら言っている
+            # 揺れに合わせて、ゆらゆら言っている
             start = time.time()
-            while time.time() - start < 10.:
+            while time.time() - start < 6.:
                 if random.random() > .4:
                     self._speaker.say("yurayura_v80")
-                elif random.random() > .3:
-                    self._speaker.say("yurayura_v100")
                 else:
-                    self._speaker.say("yurayurayurayuura_v100")
+                    self._speaker.say("yurayura_v100")
                 # 強制起動もここでやる
                 
                 # RT、フォロー、された場合は、ここでいう
-
+                if random.random() > .9:
+                    # TODO ちょっとこのファイルが再生時間長いので、カットする
+                    self._speaker.say("iphone")
+                    
                 time.sleep(3.)
+            print("search action")
             # このタイミングで、反応があると、ちがうこともいう
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
