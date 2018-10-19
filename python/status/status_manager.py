@@ -1,4 +1,5 @@
 #-*-coding:utf-8-*-
+from datetime import datetime
 import time
 
 import threading
@@ -20,7 +21,8 @@ class Accelerometer(object):
 class StatusManager(object):
 
     def __init__(self):
-        self._now = 0.
+        self._now = time.time()
+        self._datetime_now = datetime.now()
         self._acc = Accelerometer()
         self._motion = [0, 0]
 
@@ -45,8 +47,8 @@ class StatusManager(object):
             status = data[3]
             self._motion[motion_sensor_id] = 0 if status == 'stop' else 1
         elif data[0] == 'acc':
-            self._acc.acc_x = float(data[2])
-            self._acc.acc_y = float(data[3])
+            self._acc.acc_x = float(data[3])
+            self._acc.acc_y = float(data[2])
             self._acc.acc_z = float(data[4])
     
     def update(self):
@@ -57,21 +59,14 @@ class StatusManager(object):
 
         while True:
             self._now = time.time()
-            # # センサー情報
-            # acc1_data = self._sensors.get_data("GY-521")
-            # mot1_data = self._sensors.get_data("Papirs-01")
-            # print(acc1_data, mot1_data)
-            # if len(acc1_data) == 6:
-            #     self._acc.acc_x = float(acc1_data[0])
-            #     self._acc.acc_y = float(acc1_data[1])
-            #     self._acc.acc_z = float(acc1_data[2])
-            # if len(mot1_data) == 1 and len(mot1_data[0]) > 0:
-            #     self._motion.append(int(mot1_data[0]))
-            #     self._motion = self._motion[-20:]
-
+            self._datetime_now = datetime.now()
             # TODO 天気情報
+
             # TODO 強制実行アクション取得
+            
+            # TODO ハッシュタグ取得
+            
             time.sleep(.1)
 
     def get_data(self):
-        return {"now": self._now, "accelerometer": self._acc, "motions": self._motion}
+        return {"now": self._now, "datetime": self._datetime_now, "accelerometer": self._acc, "motions": self._motion}

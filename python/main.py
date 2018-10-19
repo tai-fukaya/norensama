@@ -10,7 +10,7 @@ from status import StatusManager
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import Yureyure, Hello, Joke
+from action import Yureyure, Hello, Joke, TimeSignal
 
 
 class Norensama(object):
@@ -25,7 +25,8 @@ class Norensama(object):
         self._actions = [
             Yureyure(self._speaker),
             Hello(self._speaker),
-            Joke(self._speaker)
+            Joke(self._speaker),
+            TimeSignal(self._speaker),
         ]
     
     def main(self):
@@ -52,7 +53,7 @@ class Norensama(object):
                 
                 # RT、フォロー、された場合は、ここでいう
 
-                time.sleep(5.)
+                time.sleep(3.)
             # このタイミングで、反応があると、ちがうこともいう
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
