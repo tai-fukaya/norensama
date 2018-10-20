@@ -17,12 +17,8 @@ class Joke(ActionBase):
 
     def run(self, data):
         ret = ""
-        if random.random() > .5:
-            ret = "のれんにのれん！"
-            self._sp.say("dajare")
-        else:
-            ret = "肩こるなぁ。肩ないけどね。"
-            self._sp.say("katakori")
+        ret = "肩こるなぁ。肩ないけどね。"
+        self._sp.say("katakori")
         time.sleep(1.)
         self._last_running_time = time.time()
         return ret

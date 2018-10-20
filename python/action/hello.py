@@ -10,6 +10,7 @@ class Hello(ActionBase):
     SERIFS = [
         {"name": "ohayo", "text": "おはよう"},
         {"name": "himade", "text": "暇で忙しいのだ"},
+        {"name": "curtain", "text": "孫がカーテンと、喧嘩してのぅ"},
         {"name": "mierunoka", "text": "私が見えるのか"},
         {"name": "coredosaiko", "text": "COREDOサイコー！"},
         {"name": "kiduitara", "text": "気づいたら、暖簾になっておった"},
@@ -17,6 +18,7 @@ class Hello(ActionBase):
         {"name": "bigbig", "text": "この暖簾、日本で一番大きいのじゃ"},
         {"name": "damaru", "text": "わかった、黙る。0.5秒黙る。"},
         {"name": "ainikite", "text": "世界中から、わしに会いに来ないかのう"},
+        {"name": "ashi", "text": "足生えて、こんかなぁ！"},
     ]
 
     def __init__(self, speaker):

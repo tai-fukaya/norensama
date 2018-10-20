@@ -67,19 +67,27 @@ class Norensama(object):
                 self.select_blow_action(data)
                 # その音で、IFTTT
 
-            # 揺れに合わせて、ゆらゆら言っている
-            start = time.time()
-            while time.time() - start < 6.:
-                # 風のまね
-                self._blow_actions[self._blow_action_index].run(data)
-                # 強制起動もここでやる
+            # # 揺れに合わせて、ゆらゆら言っている
+            # start = time.time()
+            # while time.time() - start < 6.:
+            #     # 風のまね
+            #     self._blow_actions[self._blow_action_index].run(data)
+            #     # 強制起動もここでやる
                 
-                # RT、フォロー、された場合は、ここでいう
-                if random.random() > .9:
-                    # TODO ちょっとこのファイルが再生時間長いので、カットする
-                    self._speaker.say("iphone")
+            #     # RT、フォロー、された場合は、ここでいう
+            #     if random.random() > .9:
+            #         # TODO ちょっとこのファイルが再生時間長いので、カットする
+            #         self._speaker.say("iphone")
                     
-                time.sleep(3.)
+            #     time.sleep(3.)
+            # 風のまね
+            self._blow_actions[self._blow_action_index].run(data)
+            # 強制起動もここでやる
+            
+            # RT、フォロー、された場合は、ここでいう
+            if random.random() > .95:
+                # TODO ちょっとこのファイルが再生時間長いので、カットする
+                self._speaker.say("iphone")
             print("search action")
             # このタイミングで、反応があると、ちがうこともいう
             runable_action = [x for x in self._actions if x.check(data)]
@@ -87,8 +95,8 @@ class Norensama(object):
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run({})
-                # １時間発言していないキーワードだったら、IFTTT
-
+                # 一定時間発言していないキーワードだったら、ツイート
+                
                 print(time.time() - start)
             time.sleep(1.)
 
