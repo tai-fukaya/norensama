@@ -6,6 +6,7 @@ import json
 
 TWEET_POST_URL = "https://api.twitter.com/1.1/statuses/update.json"
 RETWEET_RETRIVE_URL = "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
+FOLOWER_RETRIVE_URL = "https://api.twitter.com/1.1/followers/list.json"
 
 class Twitter(object):
 
@@ -43,6 +44,20 @@ class Twitter(object):
             for tweet in retweets: #リツイートリストをループ処理
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
+                print('*******************************************')
+        else: #正常に通信ができなかった場合
+            print("Failed. : %d"% res.status_code)
+
+    def follower_retrive(self):
+        params = {"user_id": 1053221484045336576, "count": 20} # 取得可能なユーザー数上限は200まで
+        res = self._session.get(FOLOWER_RETRIVE_URL, params = params)
+        print(res)
+        if res.status_code == 200: #正常に通信ができた場合
+            print("Success.")
+            followers = json.loads(res.text) #レスポンスからリツイートリストを取得
+            for user in followers['users']: #リツイートリストをループ処理
+                print(user['name'])
+                print(user['created_at'])
                 print('*******************************************')
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
