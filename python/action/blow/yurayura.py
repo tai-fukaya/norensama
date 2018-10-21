@@ -7,9 +7,9 @@ from action.action_base import ActionBase
 class Yurayura(ActionBase):
 
     SERIFS = [
-        {"name": "yurari", "text": "ゆらり"},
-        {"name": "yurariyurari", "text": "ゆらりゆらり"},
-        {"name": "yurayura", "text": "ゆらゆら"},
+        "ゆらり",
+        "ゆらりゆらり",
+        "ゆらゆら",
     ]
 
     def __init__(self, speaker):
@@ -21,8 +21,8 @@ class Yurayura(ActionBase):
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
-        self._sp.say(serif["name"])
+        self._sp.say(serif)
         time.sleep(.5)
 
-        return serif["text"]
+        return serif
         

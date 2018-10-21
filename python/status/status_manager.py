@@ -24,7 +24,7 @@ class StatusManager(object):
         self._datetime_now = datetime.now()
         self._acc = Accelerometer()
         self._motion = [0, 0]
-        self._force_serif = "わ"
+        self._force_serif = "わかった、黙る。0.5秒黙る。"
         self._force_action = ""
 
         self._server = WebsocketServer(host='127.0.0.1', port=6700)
@@ -70,7 +70,7 @@ class StatusManager(object):
         force_action = self._force_action
         self._force_action = None
         self._force_serif = None
-        
+
         return {
             "now": self._now,
             "datetime": self._datetime_now,
