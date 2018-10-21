@@ -21,6 +21,10 @@ class Twitter(object):
     def tweet(self, message):
         print("tweet:{}".format(message))
 
-        # params = {"status": message}
-        # res = self._session.post(TWEET_POST_URL, params = params)
-        # print(res)
+        params = {"status": message}
+        res = self._session.post(TWEET_POST_URL, params = params)
+        print(res)
+        if res.status_code == 200: #正常投稿出来た場合
+            print("Success.")
+        else: #正常投稿出来なかった場合
+            print("Failed. : %d"% res.status_code)
