@@ -64,8 +64,6 @@ class StatusManager(object):
 
             # TODO 強制実行アクション取得
             
-            # TODO ハッシュタグ取得
-            
             time.sleep(.1)
 
     def get_data(self):

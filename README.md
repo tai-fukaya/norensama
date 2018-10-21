@@ -16,6 +16,12 @@ apt install python-pyaudio
 pip install -r requirements.txt
 ```
 
+# How to execute
+```
+python main.py
+node index.js
+```
+
 # Credit
 Ryosuke Fujiki  
 Taiji Fukaya  
