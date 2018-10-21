@@ -20,7 +20,7 @@ class Soyosoyo(ActionBase):
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
         self._sp.say(serif["name"])
-        time.sleep(1.)
+        time.sleep(.5)
 
         return serif["text"]
         
