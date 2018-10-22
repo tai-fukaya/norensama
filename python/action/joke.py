@@ -18,7 +18,7 @@ class Joke(ActionBase):
     def run(self, data):
         ret = ""
         ret = "肩こるなぁ。肩ないけどね。"
-        self._sp.say("katakori")
+        self._sp.say(ret)
         time.sleep(1.)
         self._last_running_time = time.time()
         return ret

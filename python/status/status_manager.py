@@ -4,7 +4,6 @@ import time
 
 import threading
 from websocket_server import WebsocketServer
-# from sensor import SerialSensorManager
 
 
 class Accelerometer(object):
@@ -25,14 +24,14 @@ class StatusManager(object):
         self._datetime_now = datetime.now()
         self._acc = Accelerometer()
         self._motion = [0, 0]
+        self._force_serif = "わかった、黙る。0.5秒黙る。"
+        self._force_action = ""
 
         self._server = WebsocketServer(host='127.0.0.1', port=6700)
         self._server.set_fn_new_client(self.new_client)
         self._server.set_fn_client_left(self.client_left)
         self._server.set_fn_message_received(self.message_received)
-        # self._sensors = SerialSensorManager()
-        # self._sensors.search(["GY-521", "Papirs-01"])
-    
+
     def new_client(self, client, server):
         print('New client {}:{} has joined.'.format(client['address'][0], client['address'][1]))
     
@@ -64,9 +63,19 @@ class StatusManager(object):
 
             # TODO 強制実行アクション取得
             
-            # TODO ハッシュタグ取得
-            
             time.sleep(.1)
 
     def get_data(self):
-        return {"now": self._now, "datetime": self._datetime_now, "accelerometer": self._acc, "motions": self._motion}
+        force_serif = self._force_serif
+        force_action = self._force_action
+        self._force_action = None
+        self._force_serif = None
+
+        return {
+            "now": self._now,
+            "datetime": self._datetime_now,
+            "accelerometer": self._acc,
+            "motions": self._motion,
+            "force_serif": force_serif,
+            "force_action": force_action
+        }

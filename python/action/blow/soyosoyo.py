@@ -7,8 +7,8 @@ from action.action_base import ActionBase
 class Soyosoyo(ActionBase):
 
     SERIFS = [
-        {"name": "soyosoyo", "text": "そよそよ"},
-        {"name": "sawasawa", "text": "さわさわ"},
+        "そよそよ",
+        "さわさわ",
     ]
 
     def __init__(self, speaker):
@@ -19,8 +19,8 @@ class Soyosoyo(ActionBase):
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
-        self._sp.say(serif["name"])
-        time.sleep(1.)
+        self._sp.say(serif)
+        time.sleep(.5)
 
-        return serif["text"]
+        return serif
         
