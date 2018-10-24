@@ -20,6 +20,7 @@ class Accelerometer(object):
 class StatusManager(object):
 
     def __init__(self):
+        self._serif_names = []
         self._now = time.time()
         self._datetime_now = datetime.now()
         self._acc = Accelerometer()
@@ -49,6 +50,12 @@ class StatusManager(object):
             self._acc.acc_x = float(data[3])
             self._acc.acc_y = float(data[2])
             self._acc.acc_z = float(data[4])
+        elif data[0] == 'serif_list':
+            server.send_message(client, ",".join(self._serif_names))
+        elif data[0] == 'serif':
+            self._force_serif = data[1]
+        else:
+            print(message)
     
     def update(self):
 
@@ -79,3 +86,6 @@ class StatusManager(object):
             "force_serif": force_serif,
             "force_action": force_action
         }
+
+    def set_serif_names(self, names):
+        self._serif_names = names

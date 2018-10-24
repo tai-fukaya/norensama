@@ -3,9 +3,19 @@
  * 人が通ったら、一定期間、LEDを光らせる
  */
 require('date-utils');
-const osc = require('node-osc');
+const express = require('express');
+const serveIndex = require('serve-index');
 const WebSocketClient = require('websocket').w3cwebsocket;
 const Obniz = require('obniz');
+
+// ローカルサーバーを立ち上げて、ここでウェブソケットで通信する
+const app = express();
+app.use(express.static(__dirname + '/server'));
+app.use(serveIndex(__dirname + '/server', {icons: true}));
+const PORT = 8000;
+app.listen(PORT);
+console.log(require('os').networkInterfaces().en0[1].address, PORT);
+// TODO Facebook messanger にIPを流す
 
 // python のoscモジュールがいいかんじのがないので、とりあえずwebsocket
 // let oscClient = osc.Client('127.0.0.1', 6700);

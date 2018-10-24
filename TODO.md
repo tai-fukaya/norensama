@@ -34,7 +34,7 @@ RTがあったら、教える
 一定期間ごとに、天気予報を見に行く
 
 ## HumanIntelligence
-サーバーに強制実行するものがないか見に行く
+x サーバーに強制実行するものがないか見に行く
 
 ## StatusManager
 x 時間を教える
@@ -58,14 +58,18 @@ RTがあったときに、起動中のActionが終わるのを待って、チロ
 取得したら、再描画
 
 # 人力AI
-## ForceAction
-強制的に実行するアクションを選んで、サーバーに送る
+x pythonでサーバーを立ち上げる
+x POSTにデータを入れて、セリフを実行する
 
-## ForceLine
-アクションを指定せずに、喋る文章を選ぶ、サーバーに送る
+## ForceSerif
+x アクションを指定せずに、喋る文章を選ぶ、サーバーに送る
 
 # 音声合成APIについて
 http://voicetext.jp/
 
 # ポケットWifiの設定
 プライバシーセパレーターはOFFにすること
+
+https://qiita.com/makaishi2/items/ae83828a711d0d946011
+https://qiita.com/makaishi2/items/ed9d4412331d7d65fde5
+https://qiita.com/makaishi2/items/5c7b1b6a72b6938cf3d2

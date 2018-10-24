@@ -6,11 +6,6 @@ from action_base import ActionBase
 
 class ForceSpeak(ActionBase):
 
-    SERIF_DATA = {
-        "わ":"wa",
-    }
-
-
     def __init__(self, speaker):
         super(ForceSpeak, self).__init__(speaker)
         # data/_secret_wav以下
@@ -41,4 +36,7 @@ class ForceSpeak(ActionBase):
         time.sleep(1.)
  
         return self._next_serif
+    
+    def get_serif_names(self):
+        return self._file_names
         

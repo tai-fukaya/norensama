@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "date-utils": "^1.2.21",
+    "express": "^4.16.4",
     "node-osc": "^2.1.0",
     "obniz": "^1.12.2",
+    "serve-index": "^1.9.1",
     "websocket": "^1.0.28"
   },
   "devDependencies": {},
