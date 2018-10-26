@@ -29,7 +29,7 @@ class TimeSignal(ActionBase):
         self._next = self.SIGNAL_MAP[9]
 
     def check(self, data):
-        signal = self.SIGNAL_MAP[data["datetime"].hour]
+        signal = self.SIGNAL_MAP.get(data["datetime"].hour)
         ret = signal["isDone"]
         if not ret:
             self._next = signal

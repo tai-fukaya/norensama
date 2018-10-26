@@ -43,9 +43,10 @@ class StatusManager(object):
         # print(message)
         data = message.split(",")
         if data[0] == 'motion':
-            motion_sensor_id = int(data[2])
+            motion_sensor_id = int(data[1])
             status = data[3]
             self._motion[motion_sensor_id] = 0 if status == 'stop' else 1
+            # FIXME IndexError: list assignment index out of range
         elif data[0] == 'acc':
             self._acc.acc_x = float(data[3])
             self._acc.acc_y = float(data[2])

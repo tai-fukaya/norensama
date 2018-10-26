@@ -65,6 +65,7 @@ class Norensama(object):
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
         self.select_blow_action()
         selected_time = time.time()
+
         while True:
             time.sleep(1.)
 

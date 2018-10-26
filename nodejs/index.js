@@ -6,6 +6,7 @@ require('date-utils');
 const express = require('express');
 const serveIndex = require('serve-index');
 const WebSocketClient = require('websocket').w3cwebsocket;
+const osc = require('node-osc');
 const Obniz = require('obniz');
 
 const config = require('./_secret');
@@ -13,7 +14,11 @@ const config = require('./_secret');
 class MotionSensorObniz {
     constructor(sensor_id, obniz_id, access_token) {
         this.sensor_id = sensor_id;
-        this.obniz = new Obniz(obniz_id, {access_token: access_token});
+        if (access_token) {
+            this.obniz = new Obniz(obniz_id, {access_token: access_token});
+        } else {
+            this.obniz = new Obniz(obniz_id);
+        }
         this.sensors = [];
         this.statuses = [];
     }
@@ -53,6 +58,11 @@ class MotionSensorObniz {
                     let now = new Date();
                     this.wsc.send(["motion", this.sensor_id, position, "start", now.toFormat('YYYYMMDDHH24MISS')].join(","));
                 }
+                let oscmessage = new osc.Message("/motion");
+                oscmessage.append(this.sensor_id);
+                oscmessage.append(position);
+                oscmessage.append("start");
+                oscClient.send(oscmessage);
             }
 
             timer = setTimeout(() => {
@@ -68,6 +78,11 @@ class MotionSensorObniz {
                     let now = new Date();
                     this.wsc.send(["motion", this.sensor_id, position, "stop", now.toFormat('YYYYMMDDHH24MISS')].join(","));
                 }
+                let oscmessage = new osc.Message("/motion");
+                oscmessage.append(this.sensor_id);
+                oscmessage.append(position);
+                oscmessage.append("stop");
+                oscClient.send(oscmessage);
                 timer = null;
             }, 1000);
         };
@@ -84,6 +99,7 @@ console.log(require('os').networkInterfaces().en0[1].address, PORT);
 // TODO Facebook messanger にIPを流す
 
 let client = new WebSocketClient('ws://localhost:6700');
+let oscClient = new osc.Client("127.0.0.1", 12000);
 
 let mo0 = new MotionSensorObniz(
     0,
@@ -99,6 +115,19 @@ mo0.start(client, [{
     gnd: 6, signal: 7, vcc: 8
 }]);
 
+let mo1 = new MotionSensorObniz(
+    0,
+    "8972-1856"
+);
+
+mo1.start(client, [{
+    gnd: 6, signal: 8, vcc: 7
+}, {
+    gnd: 3, signal: 5, vcc: 4
+}, {
+    gnd: 0, signal: 2, vcc: 1
+}]);
+
 // accelerometer
 let acc0 = new Obniz("6364-1751");
 
@@ -111,10 +140,15 @@ acc0.onconnect = async () => {
         let y = values.y;
         let z = values.z;
 
-        console.log(`${x.toFixed(3)},${y.toFixed(3)},${z.toFixed(3)}`);
+        // console.log(`${x.toFixed(3)},${y.toFixed(3)},${z.toFixed(3)}`);
         if (client.readyState !== client.CLOSED) {
             client.send(["acc", 0, x, y, z].join(","));
         }
+        let message = new osc.Message("/acc");
+        message.append(x);
+        message.append(y);
+        message.append(z);
+        oscClient.send(message);
     };
 }
 

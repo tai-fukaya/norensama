@@ -30,7 +30,8 @@ class Hello(ActionBase):
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
-        self._sp.say(serif["name"])
+        self._sp.say(serif) # FIXME TypeError: string indices must be integers, not str
         time.sleep(1.)
         self._last_running_time = time.time()
-        return serif["text"]
+        
+        return serif
