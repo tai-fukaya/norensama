@@ -3,6 +3,7 @@
 # https://su-gi-rx.com/archives/942#3_StreamListener
 from requests_oauthlib import OAuth1Session
 import json
+import sys
 
 TWEET_POST_URL = "https://api.twitter.com/1.1/statuses/update.json"
 RETWEET_RETRIVE_URL = "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
@@ -78,14 +79,32 @@ class Twitter(object):
             print("Failed. : %d"% res.status_code)
 
     def mentions_timeline(self):
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
         params = {"count": 100} # 取得可能なツイート上限は100まで
+        react_text = {
+            "何才": "おいらは500才じゃ",
+            "だれ": "おいらはのれんさまじゃ",
+            "たべもの": "おいらは鰹節が好きなんじゃ",
+            "身長": "おいらは世界で一番大きい暖簾なんじゃ",
+            "句を読んで": "閑けさや 街に染み入る 日本橋 どうじゃ？？名作じゃろ？？えっ？？聞いたことあるっじゃと？",
+            "こんにちは": "こんにちは",
+            "下品な言葉": "日本橋を歩くものは上品でないとな",
+            "Hey,のれんさま": "おいらがみえるのか",
+            "もうつくよ": "待ち合わせかのう",
+        }
         res = self._session.get(MENTIONS_TIMELINE_URL , params = params)
         if res.status_code == 200: #正常に通信ができた場合
             print("Success.")
             timelines = json.loads(res.text) #レスポンスからリツイートリストを取得
             for tweet in timelines: #リツイートリストをループ処理
-                print(tweet['user']['name']+'::'+tweet['text'])
-                print(tweet['created_at'])
-                print('*******************************************')
+                for key in react_text:
+                    if key in tweet['text']:
+                        print(react_text[key])
+                        print(tweet['user']['name']+'::'+tweet['text'])
+                        print(tweet['created_at'])
+                        print('*******************************************')
+                    else:
+                        print("よく聞こえなかったのう")
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
