@@ -8,8 +8,8 @@ class CoredoAnswerToshi(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "オイラは500歳　　　じゃったかな",
-        "はて、、何歳じゃったかのう、、",
+        "オイラは500歳、じゃったかな",
+        "はて、何歳じゃったかのう",
     ]
 
     def __init__(self, speaker):

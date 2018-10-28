@@ -11,18 +11,7 @@ from twitter import Twitter
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import (
-    Hello, Joke,
-    TimeSignal, ForceSpeak,
-    CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight,
-    CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight,
-    CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu,
-    CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi,
-    Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11,
-    FollowThankyou,
-    WeathernewsCloudyToday, WeathernewsSunnyToday, WeathernewsSamuiToday, WeathernewsAttakaiToday, WeathernewsRainyToday,
-    WeathernewsRainyTomorrow, WeathernewsSunnyTomorrow, WeathernewsCloudyTomorrow
-)
+from action import *
 from action.blow import Yurayura, Soyosoyo, Byubyu
 
 
@@ -48,8 +37,6 @@ class Norensama(object):
             Yurayura(self._speaker),
             Byubyu(self._speaker),
             # あいさつ
-            Hello(self._speaker),
-            Joke(self._speaker),
             TimeSignal(self._speaker),
             # コレド紹介
             CoredoIntroduction(self._speaker),
@@ -67,6 +54,8 @@ class Norensama(object):
             CoredoAnswerGehin(self._speaker),
             CoredoAnswerSize(self._speaker),
             CoredoAnswerToshi(self._speaker),
+            FollowThankyou(self._speaker),
+            # 日付
             Month11day1(self._speaker),
             Month11day2(self._speaker),
             Month11day3(self._speaker),
@@ -78,7 +67,7 @@ class Norensama(object):
             Month11day9(self._speaker),
             Month11day10(self._speaker),
             Month11day11(self._speaker),
-            FollowThankyou(self._speaker),
+            # 天気
             WeathernewsCloudyToday(self._speaker),
             WeathernewsSunnyToday(self._speaker),
             WeathernewsSamuiToday(self._speaker),
@@ -116,11 +105,11 @@ class Norensama(object):
                 message = self._force_speak_action.run(data)
                 # 一定時間発言していないキーワードだったら、ツイート
 
-            # RT、フォロー、された場合は、ここでいう
-            if random.random() > .95:
-                # TODO ちょっとこのファイルが再生時間長いので、カットする
-                self._speaker.say("iphone")
-                continue
+            # # RT、フォロー、された場合は、ここでいう
+            # if random.random() > .95:
+            #     # TODO ちょっとこのファイルが再生時間長いので、カットする
+            #     self._speaker.say("iphone")
+            #     continue
 
             print("search action")
             # このタイミングで、反応があると、ちがうこともいう
