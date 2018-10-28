@@ -25,7 +25,16 @@ class StatusManager(object):
         self._datetime_now = datetime.now()
         self._acc = Accelerometer()
         self._motion = [0, 0]
-        self._force_serif = "わかった、黙る。0.5秒黙る。"
+
+        # 一定期間分のデータを保持する
+        self._motions = [0, 0]
+        self._motion_logs = [[],[]]
+        self._motion_statuses = [0, 0] # 0: no one, 1: enter, 2: out, 3:exist
+
+        # 加速度のデータ
+        self._accel_logs = [[], []]
+
+        self._force_serif = ""
         self._force_action = ""
 
         self._server = WebsocketServer(host='127.0.0.1', port=6700)
@@ -33,6 +42,12 @@ class StatusManager(object):
         self._server.set_fn_client_left(self.client_left)
         self._server.set_fn_message_received(self.message_received)
 
+        for i in range(100):
+            self._motion_logs[0].append(0)
+            self._motion_logs[1].append(0)
+            self._accel_logs[0].append(0)
+            self._accel_logs[1].append(0)
+            
     def new_client(self, client, server):
         print('New client {}:{} has joined.'.format(client['address'][0], client['address'][1]))
     
@@ -46,11 +61,12 @@ class StatusManager(object):
             motion_sensor_id = int(data[1])
             status = data[3]
             self._motion[motion_sensor_id] = 0 if status == 'stop' else 1
-            # FIXME IndexError: list assignment index out of range
+            # TODO センサーごとに、人が入ってきた、出てきた、人がいる、人がいない状況をとる
         elif data[0] == 'acc':
             self._acc.acc_x = float(data[3])
             self._acc.acc_y = float(data[2])
             self._acc.acc_z = float(data[4])
+            # TODO 基本、z軸だけでいいはず。一定期間の最低値と最高地、平均値、その差をとる
         elif data[0] == 'serif_list':
             server.send_message(client, ",".join(self._serif_names))
         elif data[0] == 'serif':

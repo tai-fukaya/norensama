@@ -48,7 +48,7 @@ class MotionSensorObniz {
             } else {
                 // TODO 開始送信
                 this.statuses[position] = "1";
-                let message = "";
+                let message = `${this.sensor_id},`;
                 for (let i in this.statuses) {
                     message += `${i}:${this.statuses[i]},`;
                 }
@@ -68,7 +68,7 @@ class MotionSensorObniz {
             timer = setTimeout(() => {
                 // TODO 停止送信
                 this.statuses[position] = "0";
-                let message = "";
+                let message = `${this.sensor_id},`;
                 for (let i in this.statuses) {
                     message += `${i}:${this.statuses[i]},`;
                 }
@@ -101,31 +101,31 @@ console.log(require('os').networkInterfaces().en0[1].address, PORT);
 let client = new WebSocketClient('ws://localhost:6700');
 let oscClient = new osc.Client("127.0.0.1", 12000);
 
+// 店舗案内側
 let mo0 = new MotionSensorObniz(
     0,
     "8894-3916",
     config.OBNIZ_ACCESS_TOKEN_88943916
 );
-
 mo0.start(client, [{
-    gnd: 0, signal: 1, vcc: 2
+    gnd: 6, signal: 7, vcc: 8
 }, {
     gnd: 3, signal: 4, vcc: 5
 }, {
-    gnd: 6, signal: 7, vcc: 8
+    gnd: 0, signal: 1, vcc: 2
 }]);
 
+// 入り口側
 let mo1 = new MotionSensorObniz(
-    0,
+    1,
     "8972-1856"
 );
-
 mo1.start(client, [{
-    gnd: 6, signal: 8, vcc: 7
+    gnd: 0, signal: 2, vcc: 1
 }, {
     gnd: 3, signal: 5, vcc: 4
 }, {
-    gnd: 0, signal: 2, vcc: 1
+    gnd: 6, signal: 8, vcc: 7
 }]);
 
 // accelerometer
