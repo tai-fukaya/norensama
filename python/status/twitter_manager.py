@@ -13,6 +13,11 @@ class TwitterManager(object):
 
         self._tweet_messages = []
     
+    def tweet(self, message):
+        # FIXME 直近１時間で、すでに投稿したものかどうかチェックし、その場合、投稿はしない
+        # １時間の制限になりそうな場合も、投稿しない
+        self._tweet_messages.append(message)
+
     def update(self):
         last_retweet_time = 0.0
         last_follower_time = 0.0

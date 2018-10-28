@@ -103,7 +103,7 @@ class Norensama(object):
             # 強制起動もここでやる
             if self._force_speak_action.check(data):
                 message = self._force_speak_action.run(data)
-                # 一定時間発言していないキーワードだったら、ツイート
+                # self._twitter_manager.tweet(message)
 
             # # RT、フォロー、された場合は、ここでいう
             # if random.random() > .95:
@@ -118,8 +118,7 @@ class Norensama(object):
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run(data)
-                # 一定時間発言していないキーワードだったら、ツイート
-                
+                # self._twitter_manager.tweet(message)
                 print(time.time() - start)
 
 if __name__ == "__main__":
