@@ -27,3 +27,12 @@ from .month11day8 import Month11day8
 from .month11day9 import Month11day9
 from .month11day10 import Month11day10
 from .month11day11 import Month11day11
+from .follow_thankyou import FollowThankyou
+from .weathernews_cloudy_today import WeathernewsCloudyToday
+from .weathernews_sunny_today import WeathernewsSunnyToday
+from .weathernews_samui_today import WeathernewsSamuiToday
+from .weathernews_attakai_today import WeathernewsAttakaiToday
+from .weathernews_rainy_today import WeathernewsRainyToday
+from .weathernews_rainy_tomorrow import WeathernewsRainyTomorrow
+from .weathernews_sunny_tomorrow import WeathernewsSunnyTomorrow
+from .weathernews_cloudy_tomorrow import WeathernewsCloudyTomorrow
