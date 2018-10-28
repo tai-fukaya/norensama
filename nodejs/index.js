@@ -56,7 +56,7 @@ class MotionSensorObniz {
 
                 if (this.wsc.readyState !== this.wsc.CLOSED) {
                     let now = new Date();
-                    this.wsc.send(["motion", this.sensor_id, position, "start", now.toFormat('YYYYMMDDHH24MISS')].join(","));
+                    this.wsc.send(["motion", this.sensor_id, position, "start", now.getTime()].join(","));
                 }
                 let oscmessage = new osc.Message("/motion");
                 oscmessage.append(this.sensor_id);
@@ -76,7 +76,7 @@ class MotionSensorObniz {
 
                 if (this.wsc.readyState !== this.wsc.CLOSED) {
                     let now = new Date();
-                    this.wsc.send(["motion", this.sensor_id, position, "stop", now.toFormat('YYYYMMDDHH24MISS')].join(","));
+                    this.wsc.send(["motion", this.sensor_id, position, "stop", now.getTime()].join(","));
                 }
                 let oscmessage = new osc.Message("/motion");
                 oscmessage.append(this.sensor_id);
