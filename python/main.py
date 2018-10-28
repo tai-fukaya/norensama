@@ -5,7 +5,8 @@ import time
 
 import _secret as config
 # StatusManager
-from status import StatusManager
+from status import StatusManager, TwitterManager
+from twitter import Twitter
 
 from speaker import Speaker
 from ifttt import Ifttt
@@ -32,6 +33,13 @@ class Norensama(object):
         self._ifttt = Ifttt({
             "api_key": config.IFTTT_APIKEY
         })
+        self._twitter = Twitter({
+            "consumer_key": config.TWITTER_CONSUMER_KEY,
+            "consumer_secret": config.TWITTER_CONSUMER_SECRET,
+            "access_token": config.TWITTER_ACCESS_TOKEN,
+            "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET,
+        })
+        self._twitter_manager = TwitterManager(self._twitter)
 
         self._status = StatusManager()
         self._actions = [
@@ -91,15 +99,17 @@ class Norensama(object):
         status_thread = threading.Thread(target=self._status.update)
         status_thread.daemon = True
         status_thread.start()
+        twitter_thread = threading.Thread(target=self._twitter_manager.update)
+        twitter_thread.daemon = True
+        twitter_thread.start()
 
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 
-        self._actions[36].run({})
-        
         while True:
             time.sleep(1.)
 
             data = self._status.get_data()
+            data["twitter"] = self._twitter_manager.get_data()
 
             # 強制起動もここでやる
             if self._force_speak_action.check(data):
