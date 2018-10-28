@@ -10,7 +10,7 @@ from status import StatusManager
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import Yureyure, Hello, Joke, TimeSignal, ForceSpeak
+from action import Yureyure, Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku
 from action.blow import Yurayura, Soyosoyo, Byubyu
 
 
@@ -28,6 +28,16 @@ class Norensama(object):
             Hello(self._speaker),
             Joke(self._speaker),
             TimeSignal(self._speaker),
+            CoredoIntroduction(self._speaker),
+            CoredoIntroductionAM9(self._speaker),
+            CoredoIntroductionLunch(self._speaker),
+            CoredoIntroductionNight(self._speaker),
+            CoredoBoyaki(self._speaker),
+            CoredoAnswerHanashi(self._speaker),
+            CoredoAnswerAisatsu(self._speaker),
+            CoredoAnswerSonota(self._speaker),
+            CoredoAnswerDare(self._speaker),
+            CoredoAnswerIkku(self._speaker),
         ]
         self._blow_actions = [
             # よわい
@@ -66,6 +76,8 @@ class Norensama(object):
         self.select_blow_action()
         selected_time = time.time()
 
+        self._actions[13].run({})
+        
         while True:
             time.sleep(1.)
 

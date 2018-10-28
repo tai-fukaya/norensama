@@ -3,3 +3,13 @@ from .hello import Hello
 from .joke import Joke
 from .time_signal import TimeSignal
 from .force_speak import ForceSpeak
+from .coredo_introduction import CoredoIntroduction
+from .coredo_introduction_AM9 import CoredoIntroductionAM9
+from .coredo_introduction_lunch import CoredoIntroductionLunch
+from .coredo_introduction_night import CoredoIntroductionNight
+from .coredo_boyaki import CoredoBoyaki
+from .coredo_answer_hanashi import CoredoAnswerHanashi
+from .coredo_answer_aisatsu import CoredoAnswerAisatsu
+from .coredo_answer_sonota import CoredoAnswerSonota
+from .coredo_answer_dare import CoredoAnswerDare
+from .coredo_answer_ikku import CoredoAnswerIkku
