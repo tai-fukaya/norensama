@@ -4,21 +4,20 @@ import time
 
 from action_base import ActionBase
 
-class CoredoAnswerIkku(ActionBase):
+class CoredoAnswerToshi(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "閑さや、コレドにそんな、ものはない",
-        "秋雨を、あつめて早し、日本橋川（字余り）",
-        "秋深き、隣はいつもの、暖簾じゃぞ",
+        "オイラは500歳　　　じゃったかな",
+        "はて、、何歳じゃったかのう、、",
     ]
 
     def __init__(self, speaker):
-        super(CoredoAnswerIkku, self).__init__(speaker)
+        super(CoredoAnswerToshi, self).__init__(speaker)
 
     def check(self, data):
         return random.random() > 0
-        #ツイッターで一句読んでと言われたら
+        #ツイッターで歳はと言われたら
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

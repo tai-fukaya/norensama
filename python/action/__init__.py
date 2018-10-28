@@ -13,3 +13,6 @@ from .coredo_answer_aisatsu import CoredoAnswerAisatsu
 from .coredo_answer_sonota import CoredoAnswerSonota
 from .coredo_answer_dare import CoredoAnswerDare
 from .coredo_answer_ikku import CoredoAnswerIkku
+from .coredo_answer_gehin import CoredoAnswerGehin
+from .coredo_answer_size import CoredoAnswerSize
+from .coredo_answer_toshi import CoredoAnswerToshi
