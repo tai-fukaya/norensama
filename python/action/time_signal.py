@@ -30,14 +30,16 @@ class TimeSignal(ActionBase):
 
     def check(self, data):
         signal = self.SIGNAL_MAP.get(data["datetime"].hour)
-        ret = signal["isDone"]
+        ret = signal.get("isDone", True)
         if not ret:
             self._next = signal
-            self.SIGNAL_MAP[data["datetime"].hour]["isDone"] = True
+            if data["datetime"].minute > 10:
+                return False
         return not ret
 
     def run(self, data):
         self._sp.say(self._next["text"])
+        self._next["isDone"] = True
         time.sleep(1.)
 
         return self._next["text"]
