@@ -20,5 +20,6 @@
     "noren"
   ],
   "author": "tai-fukaya",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true
 }
