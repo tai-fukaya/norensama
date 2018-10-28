@@ -10,7 +10,7 @@ from status import StatusManager
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi, Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11
+from action import Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi, Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11, FollowThankyou, WeathernewsCloudyToday, WeathernewsSunnyToday, WeathernewsSamuiToday, WeathernewsAttakaiToday, WeathernewsRainyToday, WeathernewsRainyTomorrow, WeathernewsSunnyTomorrow, WeathernewsCloudyTomorrow
 from action.blow import Yurayura, Soyosoyo, Byubyu
 
 
@@ -59,6 +59,15 @@ class Norensama(object):
             Month11day9(self._speaker),
             Month11day10(self._speaker),
             Month11day11(self._speaker),
+            FollowThankyou(self._speaker),
+            WeathernewsCloudyToday(self._speaker),
+            WeathernewsSunnyToday(self._speaker),
+            WeathernewsSamuiToday(self._speaker),
+            WeathernewsAttakaiToday(self._speaker),
+            WeathernewsRainyToday(self._speaker),
+            WeathernewsRainyTomorrow(self._speaker),
+            WeathernewsSunnyTomorrow(self._speaker),
+            WeathernewsCloudyTomorrow(self._speaker),
         ]
 
         # セリフの強制実行
@@ -74,7 +83,7 @@ class Norensama(object):
 
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 
-        self._actions[27].run({})
+        self._actions[36].run({})
         
         while True:
             time.sleep(1.)
