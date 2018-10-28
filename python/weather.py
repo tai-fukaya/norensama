@@ -17,17 +17,17 @@ class Weather(object):
         current = FIOCurrently.FIOCurrently(self.fio)
         return int(current.temperature)
 
-    def get_hourly_weather(self):
+    def get_hourly_weather(self,hour):
         hourly = FIOHourly.FIOHourly(self.fio)
-        return hourly.data[2].get('icon')
+        return hourly.data[hour].get('icon')
 
-    def get_hourly_temperature(self):
+    def get_hourly_temperature(self,hour):
         hourly = FIOHourly.FIOHourly(self.fio)
-        return int(hourly.data[2].get('temperature'))
+        return int(hourly.data[hour].get('temperature'))
 
-    def get_tommorow_weather(self):
+    def get_tommorow_weather(self,day):
         daily = FIODaily.FIODaily(self.fio)
-        return daily.data[0].get('icon')
+        return daily.data[day].get('icon')
 
 
     # def get_current_humidity(self):
