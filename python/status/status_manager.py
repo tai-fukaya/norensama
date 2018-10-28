@@ -23,7 +23,15 @@ class StatusManager(object):
         self._serif_names = []
         self._now = time.time()
         self._datetime_now = datetime.now()
+
         self._acc = Accelerometer()
+        # 加速度のデータ
+        self._accel_receive_data = [Accelerometer()]
+        self._accel_logs = [[]]
+        self._accel_z_data = [{
+            "min": 0, "max": 0, "absmin": 0, "absmax": 0,
+            "avg": 0, "diff": 0, "status": 0  # 0: no, 1: yurayura, 2: byubyu
+        }]
 
         # 一定期間分のデータを保持する
         self._motion_receive_data = [[
@@ -46,9 +54,6 @@ class StatusManager(object):
             "time": 0
         }] #0:no, 1:exist
 
-        # 加速度のデータ
-        self._accel_logs = [[], []]
-
         self._force_serif = ""
         self._force_action = ""
 
@@ -60,8 +65,7 @@ class StatusManager(object):
         for _ in range(100):
             self._motion_logs[0].append(0)
             self._motion_logs[1].append(0)
-            self._accel_logs[0].append(0)
-            self._accel_logs[1].append(0)
+            self._accel_logs[0].append(Accelerometer())
             
     def new_client(self, client, server):
         print('New client {}:{} has joined.'.format(client['address'][0], client['address'][1]))
@@ -86,10 +90,40 @@ class StatusManager(object):
             }
         elif data[0] == 'acc':
             # sensor_id, x, y, z
-            self._acc.acc_x = float(data[2])
-            self._acc.acc_y = float(data[3])
-            self._acc.acc_z = float(data[4])
-            # TODO 基本、z軸だけでいいはず。一定期間の最低値と最高地、平均値、その差をとる
+            sensor_id = int(data[1])
+            if len(self._accel_logs) <= sensor_id:
+                return
+            acc = Accelerometer()
+            acc.acc_x = float(data[2])
+            acc.acc_y = float(data[3])
+            acc.acc_z = float(data[4])
+            self._accel_receive_data[sensor_id] = acc
+            self._accel_logs[sensor_id].append(acc)
+            self._accel_logs[sensor_id] = self._accel_logs[sensor_id][-100:]
+            accel_z_logs = [x.acc_z for x in self._accel_logs[sensor_id]]
+            abs_accel_z_logs = [abs(x.acc_z) for x in self._accel_logs[sensor_id]]
+
+            min_z = min(accel_z_logs)
+            max_z = max(accel_z_logs)
+            absmin_z = min(abs_accel_z_logs)
+            absmax_z = max(abs_accel_z_logs)
+            avg_z = sum(accel_z_logs)/len(accel_z_logs)
+            diff_z = max_z - min_z
+            status = 0
+            # 強風
+            if absmin_z > .35:
+                status = 2
+            # パタパタ
+            elif abs(avg_z) < .05 and diff_z > .3 :
+                status = 1
+
+            # 基本、z軸だけでいいはず。一定期間の最低値と最高地、平均値、その差をとる
+            self._accel_z_data[sensor_id] = {
+                "min": min_z, "max": max_z,
+                "absmin": absmin_z, "absmax": absmax_z,
+                "avg": avg_z, "diff": diff_z, "status": status
+            }
+            
         elif data[0] == 'serif_list':
             server.send_message(client, ",".join(self._serif_names))
         elif data[0] == 'serif':
@@ -165,7 +199,7 @@ class StatusManager(object):
         return {
             "now": self._now,
             "datetime": self._datetime_now,
-            "accelerometer": self._acc,
+            "accelerometer": self._accel_z_data[0],
             "motions": self._human_statuses,
             "tracking": self._tracking_statuses,
             "force_serif": force_serif,

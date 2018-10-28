@@ -12,7 +12,7 @@ class Yureyure(ActionBase):
 
     def check(self, data):
         return data["now"] - self._last_running_time > self.REST_DURATION \
-            and abs(data.get("accelerometer").acc_x) > .4
+            and data.get("accelerometer").get("status", 0) == 2
 
     def run(self, data):
         self._sp.say("へっくし")

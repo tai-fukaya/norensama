@@ -15,7 +15,7 @@ class Byubyu(ActionBase):
         super(Byubyu, self).__init__(speaker)
 
     def check(self, data):
-        return abs(data.get("accelerometer").acc_x) > .4
+        return data.get("accelerometer").get("status", 0) == 2
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
