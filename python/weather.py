@@ -9,30 +9,31 @@ class Weather(object):
         self.api_key = config.get("api_key")
         self.fio = ForecastIO.ForecastIO(self.api_key, latitude=NIHONBASHI[0], longitude=NIHONBASHI[1])
 
-    def get_weather(self):
+    def get_current_weather(self):
         current = FIOCurrently.FIOCurrently(self.fio)
-        icons = {
-            "clear-day": "晴天",
-            "clear-night": "晴天",
-            "rain": "雨",
-            "snow": "雪",
-            "sleet": "あられ",
-            "wind": "強風",
-            "fog": "霧",
-            "cloudy": "くもり",
-            "partly-cloudy-day": "晴れ",
-            "partly-cloudy-night": "晴れ"
-        }
-        print '天気:', icons.get(current.icon)
+        return current.icon
 
-    def get_temperature(self):
+    def get_current_temperature(self):
         current = FIOCurrently.FIOCurrently(self.fio)
-        print '温度:', current.temperature, '度'
+        return int(current.temperature)
 
-    def get_humidity(self):
-        current = FIOCurrently.FIOCurrently(self.fio)
-        print '湿度:', str(float(current.humidity)*100),'%'
+    def get_hourly_weather(self):
+        hourly = FIOHourly.FIOHourly(self.fio)
+        return hourly.data[2].get('icon')
 
-    def get_precipProbability(self):
-        current = FIOCurrently.FIOCurrently(self.fio)
-        print '降水確率:', str(float(current.precipProbability)*100),'%'
+    def get_hourly_temperature(self):
+        hourly = FIOHourly.FIOHourly(self.fio)
+        return int(hourly.data[2].get('temperature'))
+
+    def get_tommorow_weather(self):
+        daily = FIODaily.FIODaily(self.fio)
+        return daily.data[0].get('icon')
+
+
+    # def get_current_humidity(self):
+    #     current = FIOCurrently.FIOCurrently(self.fio)
+    #     return int(float(current.humidity)*100),'%'
+    # #
+    # def get_current_precipProbability(self):
+    #     current = FIOCurrently.FIOCurrently(self.fio)
+    #     return int(float(current.precipProbability)*100),'%'
