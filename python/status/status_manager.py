@@ -1,9 +1,11 @@
 #-*-coding:utf-8-*-
 from datetime import datetime
 import time
-
 import threading
 from websocket_server import WebsocketServer
+
+from weather import Weather
+import _secret as config
 
 
 class Accelerometer(object):
@@ -61,6 +63,17 @@ class StatusManager(object):
         self._server.set_fn_new_client(self.new_client)
         self._server.set_fn_client_left(self.client_left)
         self._server.set_fn_message_received(self.message_received)
+
+        # 天気情報
+        self._weather = Weather({
+            "api_key": config.WEATHER_APIKEY
+        })
+        self._weather_get_time = 0.
+        self._current_weather = ""
+        self._current_temperature = 15
+        self._two_hour_weather = ""
+        self._two_hour_temperature = 15
+        self._tomorrow_weather = ""
 
         for _ in range(100):
             self._motion_logs[0].append(0)
@@ -182,12 +195,19 @@ class StatusManager(object):
                         "status": tracking_status,
                         "time": datetime.now()
                     }
-            # TODO ログへの追加
 
             # TODO ツイッター情報
 
-            # TODO 天気情報
-
+            # 天気情報
+            if time.time() - self._weather_get_time > 3600:
+                # １時間に一回
+                print("get weather")
+                self._current_weather = self._weather.get_current_weather()
+                self._current_temperature = self._weather.get_current_temperature()
+                self._two_hour_weather = self._weather.get_hourly_weather()
+                self._two_hour_weather = self._weather.get_hourly_temperature()
+                self._tomorrow_weather = self._weather.get_tommorow_weather()
+                self._weather_get_time = time.time()
             time.sleep(.05)
 
     def get_data(self):
@@ -202,6 +222,13 @@ class StatusManager(object):
             "accelerometer": self._accel_z_data[0],
             "motions": self._human_statuses,
             "tracking": self._tracking_statuses,
+            "weather": {
+                "current_weather": self._current_weather,
+                "current_temperature": self._current_temperature,
+                "two_hour_weather": self._two_hour_weather,
+                "two_hour_temperature": self._two_hour_temperature,
+                "tommorow_weather": self._tomorrow_weather
+            },
             "force_serif": force_serif,
             "force_action": force_action
         }
