@@ -1,7 +1,4 @@
 #-*-coding:utf-8-*-
-import json
-from requests_oauthlib import OAuth1Session
-import sys
 import time
 
 class TwitterManager(object):
