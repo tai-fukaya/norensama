@@ -25,15 +25,6 @@ class Weather(object):
         hourly = FIOHourly.FIOHourly(self.fio)
         return int(hourly.data[hour].get('temperature'))
 
-    def get_tommorow_weather(self,day):
+    def get_daily_weather(self,day):
         daily = FIODaily.FIODaily(self.fio)
         return daily.data[day].get('icon')
-
-
-    # def get_current_humidity(self):
-    #     current = FIOCurrently.FIOCurrently(self.fio)
-    #     return int(float(current.humidity)*100),'%'
-    # #
-    # def get_current_precipProbability(self):
-    #     current = FIOCurrently.FIOCurrently(self.fio)
-    #     return int(float(current.precipProbability)*100),'%'
