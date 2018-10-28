@@ -10,7 +10,7 @@ from status import StatusManager
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import Yureyure, Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi
+from action import Yureyure, Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi, Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11
 from action.blow import Yurayura, Soyosoyo, Byubyu
 
 
@@ -41,6 +41,17 @@ class Norensama(object):
             CoredoAnswerGehin(self._speaker),
             CoredoAnswerSize(self._speaker),
             CoredoAnswerToshi(self._speaker),
+            Month11day1(self._speaker),
+            Month11day2(self._speaker),
+            Month11day3(self._speaker),
+            Month11day4(self._speaker),
+            Month11day5(self._speaker),
+            Month11day6(self._speaker),
+            Month11day7(self._speaker),
+            Month11day8(self._speaker),
+            Month11day9(self._speaker),
+            Month11day10(self._speaker),
+            Month11day11(self._speaker),
         ]
         self._blow_actions = [
             # よわい
@@ -71,7 +82,7 @@ class Norensama(object):
         self.select_blow_action()
         selected_time = time.time()
 
-        self._actions[16].run({})
+        self._actions[27].run({})
         
         while True:
             time.sleep(1.)
