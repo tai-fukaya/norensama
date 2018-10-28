@@ -10,7 +10,18 @@ from status import StatusManager
 from speaker import Speaker
 from ifttt import Ifttt
 # Action
-from action import Hello, Joke, TimeSignal, ForceSpeak, CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight, CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi, Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11, FollowThankyou, WeathernewsCloudyToday, WeathernewsSunnyToday, WeathernewsSamuiToday, WeathernewsAttakaiToday, WeathernewsRainyToday, WeathernewsRainyTomorrow, WeathernewsSunnyTomorrow, WeathernewsCloudyTomorrow
+from action import (
+    Hello, Joke,
+    TimeSignal, ForceSpeak,
+    CoredoIntroduction, CoredoIntroductionAM9, CoredoIntroductionLunch, CoredoIntroductionNight,
+    CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu, CoredoAnswerSonota, CoredoIntroductionNight,
+    CoredoBoyaki, CoredoAnswerHanashi, CoredoAnswerAisatsu,
+    CoredoAnswerDare, CoredoAnswerIkku, CoredoAnswerGehin, CoredoAnswerSize, CoredoAnswerToshi,
+    Month11day1, Month11day2, Month11day3, Month11day4, Month11day5, Month11day6, Month11day7, Month11day8, Month11day9, Month11day10, Month11day11,
+    FollowThankyou,
+    WeathernewsCloudyToday, WeathernewsSunnyToday, WeathernewsSamuiToday, WeathernewsAttakaiToday, WeathernewsRainyToday,
+    WeathernewsRainyTomorrow, WeathernewsSunnyTomorrow, WeathernewsCloudyTomorrow
+)
 from action.blow import Yurayura, Soyosoyo, Byubyu
 
 
