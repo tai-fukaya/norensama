@@ -16,8 +16,7 @@ class Yurayura(ActionBase):
         super(Yurayura, self).__init__(speaker)
 
     def check(self, data):
-        return abs(data.get("accelerometer").acc_x) > .2 \
-            and abs(data.get("accelerometer").acc_x) < .4
+        return data.get("accelerometer").get("status", 0) == 1
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

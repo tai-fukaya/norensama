@@ -56,15 +56,7 @@ class Norensama(object):
         acc = data.get("accelerometer")
         if acc is None:
             return
-        
-        print(acc.acc_x, acc.acc_y, acc.acc_z)
-        acc_x = abs(acc.acc_x)
-        if acc_x > .5:
-            self._blow_action_index = 2
-        elif acc_x > .2:
-            self._blow_action_index = 1
-        else:
-            self._blow_action_index = 0
+        self._blow_action_index = acc.get("status", 0)
 
     def main(self):
         print("main")
