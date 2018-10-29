@@ -8,10 +8,11 @@ import sys
 TWEET_POST_URL = "https://api.twitter.com/1.1/statuses/update.json"
 TWEET_DELETE_URL = "https://api.twitter.com/1.1/statuses/destroy/"
 RETWEET_RETRIVE_URL = "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
-FOLOWER_RETRIVE_URL = "https://api.twitter.com/1.1/followers/list.json"
+USER_PROFILE_URL = "https://api.twitter.com/1.1/users/show.json"
 HASHTAG_RETRIVE_URL = "https://api.twitter.com/1.1/search/tweets.json"
 MENTIONS_TIMELINE_URL = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
 MY_TIMELINE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+
 
 class Twitter(object):
 
@@ -25,6 +26,9 @@ class Twitter(object):
             self.consumer_key,self.consumer_secret,
             self.access_token, self.access_token_secret
         )
+
+        self.followers_count = 0
+
 
     def tweet(self, message):
         # 投稿できる上限は、3時間に300ツイートまで
@@ -49,7 +53,7 @@ class Twitter(object):
                 destroy_res = self._session.post(TWEET_DELETE_URL + str(tweet['id']) + ".json", params = destroy_params)
                 print('----------------------------------------------------')
         else:
-            print("ERROR: %d" % res.status_code)
+            print("削除できるツイートがありません。 : %d"% res.status_code)
 
 
 
@@ -61,26 +65,37 @@ class Twitter(object):
             print("Success.")
             retweets = json.loads(res.text) #レスポンスからリツイートリストを取得
             for tweet in retweets: #リツイートリストをループ処理
-                print(tweet)
+                # print(tweet)
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
+                print(tweet['retweet_count'])
                 print('*******************************************')
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
 
     def follower_retrive(self):
-        # 探索できる上限は、15分に15回まで
-        params = {"user_id": 1053221484045336576, "count": 20} # 取得可能なユーザー数上限は200まで
-        res = self._session.get(FOLOWER_RETRIVE_URL, params = params)
+        params = {"user_id": 1053221484045336576}
+        res = self._session.get(USER_PROFILE_URL, params = params)
         if res.status_code == 200: #正常に通信ができた場合
             print("Success.")
-            followers = json.loads(res.text) #レスポンスからリツイートリストを取得
-            for user in followers['users']: #リツイートリストをループ処理
-                print(user['name'])
-                print(user['created_at'])
-                print('*******************************************')
-        else: #正常に通信ができなかった場合
+            user = json.loads(res.text)
+            print(user['followers_count'])
+            if user['followers_count'] > self.followers_count:
+                print("前回からフォロワー数が増えました。")
+                self.followers_count = user['followers_count']
+                return True
+
+            elif user['followers_count'] < self.followers_count:
+                print("前回からフォロワー数が減りました。")
+                self.followers_count = user['followers_count']
+                return False
+
+            else:
+                print("前回とフォロワー数が変わりません。")
+                return False
+        else:
             print("Failed. : %d"% res.status_code)
+            return False
 
 
     def hashtag_retrive(self,hashtag):
@@ -98,32 +113,18 @@ class Twitter(object):
             print("Failed. : %d"% res.status_code)
 
     def mentions_timeline(self):
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
+        # reload(sys)
+        # sys.setdefaultencoding('utf-8')
         params = {"count": 100} # 取得可能なツイート上限は100まで
-        react_text = {
-            "何才": "おいらは500才じゃ",
-            "だれ": "おいらはのれんさまじゃ",
-            "たべもの": "おいらは鰹節が好きなんじゃ",
-            "身長": "おいらは世界で一番大きい暖簾なんじゃ",
-            "句を読んで": "閑けさや 街に染み入る 日本橋 どうじゃ？？名作じゃろ？？えっ？？聞いたことあるっじゃと？",
-            "こんにちは": "こんにちは",
-            "下品な言葉": "日本橋を歩くものは上品でないとな",
-            "Hey,のれんさま": "おいらがみえるのか",
-            "もうつくよ": "待ち合わせかのう",
-        }
         res = self._session.get(MENTIONS_TIMELINE_URL , params = params)
         if res.status_code == 200: #正常に通信ができた場合
             print("Success.")
             timelines = json.loads(res.text) #レスポンスからリツイートリストを取得
             for tweet in timelines: #リツイートリストをループ処理
-                for key in react_text:
-                    if key in tweet['text']:
-                        print(react_text[key])
-                        print(tweet['user']['name']+'::'+tweet['text'])
-                        print(tweet['created_at'])
-                        print('*******************************************')
-                    else:
-                        print("よく聞こえなかったのう")
+                print(tweet['user']['name']+'::'+tweet['text'])
+                print(tweet['created_at'])
+                print('*******************************************')
+                    # else:
+                    #     print("よく聞こえなかったのう")
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
