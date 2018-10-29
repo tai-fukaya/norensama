@@ -20,6 +20,3 @@ twitter = Twitter({
 print twitter.mentions_timeline()
 message = str(raw_input('>> '))
 print twitter.mentions_timeline()
-# twitter.get_user_profile()
-# message = str(raw_input('>> '))
-# twitter.get_user_profile()

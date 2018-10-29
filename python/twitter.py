@@ -30,6 +30,7 @@ class Twitter(object):
         self.followers_count = 0
         self.old_message = ""
         self.old_mentions_created_at = ""
+        self.old_hashtag_created_at = ""
 
 
     def tweet(self, message):
@@ -78,7 +79,7 @@ class Twitter(object):
     def follower_retrive(self):
         params = {"user_id": 1053221484045336576}
         res = self._session.get(USER_PROFILE_URL, params = params)
-        if res.status_code == 200: #正常に通信ができた場合
+        if res.status_code == 200:
             print("Success.")
             user = json.loads(res.text)
             print(user['followers_count'])
@@ -104,31 +105,37 @@ class Twitter(object):
         # 探索できる上限は、15分に180回まで
         params = {"q": "#" + hashtag, "count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(HASHTAG_RETRIVE_URL , params = params)
+        hashtag_tweet_list = []
         if res.status_code == 200:
             print("Success.")
             tweets = json.loads(res.text)
             for tweet in tweets['statuses']:
+                if self.old_hashtag_created_at == tweet['created_at']:
+                    return hashtag_tweet_list
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
                 print('*******************************************')
-        else: 
+                hashtag_tweet_list.append(tweet['text'])
+            self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
+            return hashtag_tweet_list
+        else:
             print("Failed. : %d"% res.status_code)
 
     def mentions_timeline(self):
         # 探索できる上限は、15分に75回まで
         params = {"count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(MENTIONS_TIMELINE_URL , params = params)
-        mention_tweet = []
+        mention_tweet_list = []
         if res.status_code == 200:
             timelines = json.loads(res.text)
             for tweet in timelines:
                 if self.old_mentions_created_at == tweet['created_at']:
-                    return mention_tweet
+                    return mention_tweet_list
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
                 print('*******************************************')
-                mention_tweet.append(tweet['text'])
+                mention_tweet_list.append(tweet['text'])
             self.old_mentions_created_at = timelines[0]['created_at']
-            return mention_tweet
+            return mention_tweet_list
         else:
             print("Failed. : %d"% res.status_code)
