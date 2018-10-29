@@ -27,6 +27,7 @@ class Twitter(object):
             self.access_token, self.access_token_secret
         )
 
+        self.old_retweet_count = 0
         self.old_followers_count = 0
         self.old_message = ""
         self.old_mentions_created_at = ""
@@ -64,15 +65,28 @@ class Twitter(object):
         # 探索できる上限は、15分に75回まで
         params = {"count": 100} # 取得可能なツイート数上限は100Tweetまで
         res = self._session.get(RETWEET_RETRIVE_URL, params = params)
-        if res.status_code == 200: #正常に通信ができた場合
+        self.retweet_count = 0
+        if res.status_code == 200:
             print("Success.")
-            retweets = json.loads(res.text) #レスポンスからリツイートリストを取得
-            for tweet in retweets: #リツイートリストをループ処理
-                # print(tweet)
+            retweets = json.loads(res.text)
+            for tweet in retweets:
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
-                print(tweet['retweet_count'])
+                print(("リツイート総数" + str(tweet['created_at']))
                 print('*******************************************')
+                self.retweet_count += int(tweet['retweet_count'])
+            if self.retweet_count > self.old_retweet_count:
+                diff_count = self.retweet_count - self.old_retweet_count
+                print("リツイートの数が" + str(diff_count) + "増えました")
+                self.old_retweet_count = self.retweet_count
+            elif self.retweet_count < self.old_retweet_count:
+                diff_count = self.retweet_count - self.old_retweet_count
+                print("リツイートの数が" + str(diff_count) + "減りました")
+                self.old_retweet_count = self.retweet_count
+            else:
+                print("リツイートの数は変わっていません")
+                diff_count = self.retweet_count - self.old_retweet_count
+            return diff_count
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
 
@@ -87,18 +101,17 @@ class Twitter(object):
                 print("前回からフォロワー数が増えました。")
                 diff_count = user['followers_count'] - self.old_followers_count
                 self.old_followers_count = user['followers_count']
-                return diff_count
 
             elif user['followers_count'] < self.old_followers_count:
                 print("前回からフォロワー数が減りました。")
                 diff_count = user['followers_count'] - self.old_followers_count
                 self.old_followers_count = user['followers_count']
-                return diff_count
 
             else:
                 print("前回とフォロワー数が変わりません。")
-                diff_count = user['followers_count'] - self.old_followers_count
-                return diff_count
+                diff_count = user['followers_count'] - self.old_followers_countg
+            return diff_count
+
         else:
             print("Failed. : %d"% res.status_code)
 
