@@ -72,7 +72,7 @@ class Twitter(object):
             for tweet in retweets:
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
-                print(("リツイート総数" + str(tweet['created_at']))
+                print(("リツイート総数" + str(tweet['created_at'])))
                 print('*******************************************')
                 self.retweet_count += int(tweet['retweet_count'])
             if self.retweet_count > self.old_retweet_count:
