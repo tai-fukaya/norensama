@@ -78,11 +78,11 @@ class Twitter(object):
                 return True
             elif self.retweet_count < self.old_retweet_count:
                 diff_count = self.retweet_count - self.old_retweet_count
-                print("リツイートの数が" + str(diff_count) + "減りました")
+                # print("リツイートの数が" + str(diff_count) + "減りました")
                 self.old_retweet_count = self.retweet_count
                 return False
             else:
-                print("リツイートの数は変わっていません")
+                # print("リツイートの数は変わっていません")
                 diff_count = self.retweet_count - self.old_retweet_count
                 return False
             # return diff_count
@@ -95,7 +95,7 @@ class Twitter(object):
         res = self._session.get(USER_PROFILE_URL, params = params)
         if res.status_code == 200:
             user = json.loads(res.text)
-            print("フォロワー数" + str(user['followers_count']))
+            # print("フォロワー数" + str(user['followers_count']))
             if user['followers_count'] > self.old_followers_count:
                 diff_count = user['followers_count'] - self.old_followers_count
                 print("前回からフォロワー数が" + str(diff_count) + "増えました。")
@@ -104,12 +104,12 @@ class Twitter(object):
 
             elif user['followers_count'] < self.old_followers_count:
                 diff_count = user['followers_count'] - self.old_followers_count
-                print("前回からフォロワー数が"+ str(diff_count) + "減りました。")
+                # print("前回からフォロワー数が"+ str(diff_count) + "減りました。")
                 self.old_followers_count = user['followers_count']
                 return False
 
             else:
-                print("前回とフォロワー数が変わりません。")
+                # print("前回とフォロワー数が変わりません。")
                 diff_count = user['followers_count'] - self.old_followers_count
                 return False
             # return diff_count
@@ -118,27 +118,23 @@ class Twitter(object):
             print("Failed. : %d"% res.status_code)
 
 
-    def hashtag_retrive(self,hashtag):
+    def get_hashtags(self,hashtag):
         # 探索できる上限は、15分に180回まで
         params = {"q": "#" + hashtag, "count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(HASHTAG_RETRIVE_URL , params = params)
         hashtag_tweet_list = []
         if res.status_code == 200:
-            print("Success.")
             tweets = json.loads(res.text)
             for tweet in tweets['statuses']:
                 if self.old_hashtag_created_at == tweet['created_at']:
                     return hashtag_tweet_list
-                print(tweet['user']['name']+'::'+tweet['text'])
-                print(tweet['created_at'])
-                print('*******************************************')
                 hashtag_tweet_list.append(tweet['text'])
             self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
             return hashtag_tweet_list
         else:
             print("Failed. : %d"% res.status_code)
 
-    def mentions_timeline(self):
+    def get_mention_timeline(self):
         # 探索できる上限は、15分に75回まで
         params = {"count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(MENTIONS_TIMELINE_URL , params = params)
@@ -148,9 +144,6 @@ class Twitter(object):
             for tweet in timelines:
                 if self.old_mentions_created_at == tweet['created_at']:
                     return mention_tweet_list
-                print(tweet['user']['name']+'::'+tweet['text'])
-                print(tweet['created_at'])
-                print('*******************************************')
                 mention_tweet_list.append(tweet['text'])
             self.old_mentions_created_at = timelines[0]['created_at']
             return mention_tweet_list
