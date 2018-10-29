@@ -5,7 +5,7 @@ from action_base import ActionBase
 
 class TimeSignal(ActionBase):
 
-    REST_DURATION = 60.
+    REST_DURATION = 40 * 60.
 
     SIGNAL_MAP = {
         9: { 'text': '9時じゃ', 'isDone': False },
@@ -29,6 +29,8 @@ class TimeSignal(ActionBase):
         self._next = self.SIGNAL_MAP[9]
 
     def check(self, data):
+        if data["now"] - self._last_running_time < self.REST_DURATION:
+            return False
         signal = self.SIGNAL_MAP.get(data["datetime"].hour)
         ret = signal.get("isDone", True)
         if not ret:
@@ -41,5 +43,6 @@ class TimeSignal(ActionBase):
         self._sp.say(self._next["text"])
         self._next["isDone"] = True
         time.sleep(1.)
+        self._last_running_time = time.time()
 
         return self._next["text"]

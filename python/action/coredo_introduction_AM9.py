@@ -8,7 +8,7 @@ class CoredoIntroductionAM9(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "通勤のみなさん、いつもご苦労様じゃ",
+        "通勤のみなさん、いつもご苦労様じゃ", # 11時前、出た、入った
     ]
 
     def __init__(self, speaker):

@@ -8,7 +8,7 @@ class Month11day8(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "11月8日木曜日じゃ。",
+        "11月8日木曜日じゃ。", # 11/8 1h
     ]
 
     def __init__(self, speaker):

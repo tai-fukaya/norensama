@@ -34,50 +34,50 @@ class Norensama(object):
 
         self._status = StatusManager()
         self._actions = [
-            # 風の音系
-            Soyosoyo(self._speaker),
-            Yurayura(self._speaker),
-            Byubyu(self._speaker),
             # あいさつ
             TimeSignal(self._speaker),
             # コレド紹介
             CoredoIntroduction(self._speaker),
-            CoredoIntroductionAM9(self._speaker),
-            CoredoIntroductionLunch(self._speaker),
-            CoredoIntroductionNight(self._speaker),
-            # クソウンチク
-            CoredoBoyaki(self._speaker),
-            # ツイッター
-            CoredoAnswerHanashi(self._speaker),
-            CoredoAnswerAisatsu(self._speaker),
-            CoredoAnswerSonota(self._speaker),
-            CoredoAnswerDare(self._speaker),
-            CoredoAnswerIkku(self._speaker),
-            CoredoAnswerGehin(self._speaker),
-            CoredoAnswerSize(self._speaker),
-            CoredoAnswerToshi(self._speaker),
-            FollowThankyou(self._speaker),
-            # 日付
-            Month11day1(self._speaker),
-            Month11day2(self._speaker),
-            Month11day3(self._speaker),
-            Month11day4(self._speaker),
-            Month11day5(self._speaker),
-            Month11day6(self._speaker),
-            Month11day7(self._speaker),
-            Month11day8(self._speaker),
-            Month11day9(self._speaker),
-            Month11day10(self._speaker),
-            Month11day11(self._speaker),
-            # 天気
-            WeathernewsCloudyToday(self._speaker),
-            WeathernewsSunnyToday(self._speaker),
-            WeathernewsSamuiToday(self._speaker),
-            WeathernewsAttakaiToday(self._speaker),
-            WeathernewsRainyToday(self._speaker),
-            WeathernewsRainyTomorrow(self._speaker),
-            WeathernewsSunnyTomorrow(self._speaker),
-            WeathernewsCloudyTomorrow(self._speaker),
+            # CoredoIntroductionAM9(self._speaker),
+            # CoredoIntroductionLunch(self._speaker),
+            # CoredoIntroductionNight(self._speaker),
+            # # クソウンチク
+            # CoredoBoyaki(self._speaker),
+            # # ツイッター
+            # CoredoAnswerHanashi(self._speaker),
+            # CoredoAnswerAisatsu(self._speaker),
+            # CoredoAnswerSonota(self._speaker),
+            # CoredoAnswerDare(self._speaker),
+            # CoredoAnswerIkku(self._speaker),
+            # CoredoAnswerGehin(self._speaker),
+            # CoredoAnswerSize(self._speaker),
+            # CoredoAnswerToshi(self._speaker),
+            # FollowThankyou(self._speaker),
+            # # 日付
+            # Month11day1(self._speaker),
+            # Month11day2(self._speaker),
+            # Month11day3(self._speaker),
+            # Month11day4(self._speaker),
+            # Month11day5(self._speaker),
+            # Month11day6(self._speaker),
+            # Month11day7(self._speaker),
+            # Month11day8(self._speaker),
+            # Month11day9(self._speaker),
+            # Month11day10(self._speaker),
+            # Month11day11(self._speaker),
+            # # 天気
+            # WeathernewsCloudyToday(self._speaker),
+            # WeathernewsSunnyToday(self._speaker),
+            # WeathernewsSamuiToday(self._speaker),
+            # WeathernewsAttakaiToday(self._speaker),
+            # WeathernewsRainyToday(self._speaker),
+            # WeathernewsRainyTomorrow(self._speaker),
+            # WeathernewsSunnyTomorrow(self._speaker),
+            # WeathernewsCloudyTomorrow(self._speaker),
+            # # 風の音系
+            # Soyosoyo(self._speaker),
+            # Yurayura(self._speaker),
+            # Byubyu(self._speaker),
         ]
 
         # セリフの強制実行
@@ -96,7 +96,7 @@ class Norensama(object):
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 
         while True:
-            time.sleep(1.)
+            time.sleep(.1)
 
             data = self._status.get_data()
             data["twitter"] = self._twitter_manager.get_data()
@@ -104,7 +104,7 @@ class Norensama(object):
             # 強制起動もここでやる
             if self._force_speak_action.check(data):
                 message = self._force_speak_action.run(data)
-                # self._twitter_manager.tweet(message)
+                self._twitter_manager.tweet(message)
 
             # # RT、フォロー、された場合は、ここでいう
             # if random.random() > .95:
@@ -119,7 +119,7 @@ class Norensama(object):
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run(data)
-                # self._twitter_manager.tweet(message)
+                self._twitter_manager.tweet(message)
                 print(time.time() - start)
 
 if __name__ == "__main__":
