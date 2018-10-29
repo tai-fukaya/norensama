@@ -53,18 +53,8 @@ class Norensama(object):
             # CoredoAnswerSize(self._speaker),
             # CoredoAnswerToshi(self._speaker),
             # FollowThankyou(self._speaker),
-            # # 日付
-            # Month11day1(self._speaker),
-            # Month11day2(self._speaker),
-            # Month11day3(self._speaker),
-            # Month11day4(self._speaker),
-            # Month11day5(self._speaker),
-            # Month11day6(self._speaker),
-            # Month11day7(self._speaker),
-            # Month11day8(self._speaker),
-            # Month11day9(self._speaker),
-            # Month11day10(self._speaker),
-            # Month11day11(self._speaker),
+            # 日付
+            Today(self._speaker),
             # 天気
             WeatherWarm(self._speaker),
             WeatherCold(self._speaker),

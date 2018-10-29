@@ -196,8 +196,6 @@ class StatusManager(object):
                         "time": datetime.now()
                     }
 
-            # TODO ツイッター情報
-
             # 天気情報
             if time.time() - self._weather_get_time > 3600:
                 # １時間に一回

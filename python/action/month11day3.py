@@ -8,7 +8,6 @@ class Month11day3(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "11月3日土曜日じゃ。", # 11/3 1h
         "今日は福徳の森で日本酒祭があるんじゃ。オイラも行きたいぞ！", # 11/3 20min
     ]
 
