@@ -90,7 +90,8 @@ class Twitter(object):
         else: #正常に通信ができなかった場合
             print("Failed. : %d"% res.status_code)
 
-    def follower_retrive(self):
+    def has_follower(self):
+        # 探索できる上限は、15分に900回まで
         params = {"user_id": 1053221484045336576}
         res = self._session.get(USER_PROFILE_URL, params = params)
         if res.status_code == 200:
@@ -101,16 +102,19 @@ class Twitter(object):
                 print("前回からフォロワー数が増えました。")
                 diff_count = user['followers_count'] - self.old_followers_count
                 self.old_followers_count = user['followers_count']
+                return True
 
             elif user['followers_count'] < self.old_followers_count:
                 print("前回からフォロワー数が減りました。")
                 diff_count = user['followers_count'] - self.old_followers_count
                 self.old_followers_count = user['followers_count']
+                return False
 
             else:
                 print("前回とフォロワー数が変わりません。")
                 diff_count = user['followers_count'] - self.old_followers_countg
-            return diff_count
+                return False
+            # return diff_count
 
         else:
             print("Failed. : %d"% res.status_code)
