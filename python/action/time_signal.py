@@ -32,6 +32,8 @@ class TimeSignal(ActionBase):
         if data["now"] - self._last_running_time < self.REST_DURATION:
             return False
         signal = self.SIGNAL_MAP.get(data["datetime"].hour)
+        if not signal:
+            return False
         ret = signal.get("isDone", True)
         if not ret:
             self._next = signal

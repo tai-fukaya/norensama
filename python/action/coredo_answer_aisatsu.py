@@ -6,7 +6,8 @@ from action_base import ActionBase
 
 class CoredoAnswerAisatsu(ActionBase):
 
-    REST_DURATION = 30.
+    # 5min
+    REST_DURATION = 5. * 60.
     SERIFS = [
         "こんにちは",
     ]
@@ -15,7 +16,8 @@ class CoredoAnswerAisatsu(ActionBase):
         super(CoredoAnswerAisatsu, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
+        
+        return data["now"] - self._last_running_time > self.REST_DURATION
         #ツイッターでこんにちはと言われたら
 
     def run(self, data):

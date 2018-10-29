@@ -205,7 +205,7 @@ class StatusManager(object):
                 self._current_weather = self._weather.get_current_weather()
                 self._current_temperature = self._weather.get_current_temperature()
                 self._two_hour_weather = self._weather.get_hourly_weather(2)
-                self._two_hour_weather = self._weather.get_hourly_temperature(2)
+                self._two_hour_temperature = self._weather.get_hourly_temperature(2)
                 self._tomorrow_weather = self._weather.get_daily_weather(0)
                 self._weather_get_time = time.time()
             time.sleep(.05)

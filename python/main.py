@@ -65,15 +65,15 @@ class Norensama(object):
             # Month11day9(self._speaker),
             # Month11day10(self._speaker),
             # Month11day11(self._speaker),
-            # # 天気
-            # WeathernewsCloudyToday(self._speaker),
-            # WeathernewsSunnyToday(self._speaker),
-            # WeathernewsSamuiToday(self._speaker),
-            # WeathernewsAttakaiToday(self._speaker),
-            # WeathernewsRainyToday(self._speaker),
-            # WeathernewsRainyTomorrow(self._speaker),
-            # WeathernewsSunnyTomorrow(self._speaker),
-            # WeathernewsCloudyTomorrow(self._speaker),
+            # 天気
+            WeatherWarm(self._speaker),
+            WeatherCold(self._speaker),
+            WeatherCloudy(self._speaker),
+            WeatherRainy(self._speaker),
+            WeatherSunny(self._speaker),
+            WeatherRainyTomorrow(self._speaker),
+            WeatherSunnyTomorrow(self._speaker),
+            WeatherCloudyTomorrow(self._speaker),
             # # 風の音系
             # Soyosoyo(self._speaker),
             # Yurayura(self._speaker),
@@ -105,12 +105,6 @@ class Norensama(object):
             if self._force_speak_action.check(data):
                 message = self._force_speak_action.run(data)
                 self._twitter_manager.tweet(message)
-
-            # # RT、フォロー、された場合は、ここでいう
-            # if random.random() > .95:
-            #     # TODO ちょっとこのファイルが再生時間長いので、カットする
-            #     self._speaker.say("iphone")
-            #     continue
 
             print("search action")
             # このタイミングで、反応があると、ちがうこともいう

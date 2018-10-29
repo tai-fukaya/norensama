@@ -4,19 +4,22 @@ import time
 
 from action_base import ActionBase
 
-class WeathernewsRainyTomorrow(ActionBase):
+class WeatherRainyTomorrow(ActionBase):
 
-    REST_DURATION = 30.
+    REST_DURATION = 40 * 60.
     SERIFS = [
         "明日の天気は、雨じゃ。たぶん。",
     ]
 
     def __init__(self, speaker):
-        super(WeathernewsRainyTomorrow, self).__init__(speaker)
+        super(WeatherRainyTomorrow, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
         #明日雨が降る場合
+        duration = data["now"] - self._last_running_time
+        tommorow_weather = data["weather"]["tommorow_weather"]
+
+        return duration > self.REST_DURATION and "rain" in tommorow_weather and random.random() > .5
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

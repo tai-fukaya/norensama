@@ -6,7 +6,7 @@ from action_base import ActionBase
 
 class CoredoIntroduction(ActionBase):
 
-    REST_DURATION = 30.
+    REST_DURATION = 10 * 60.
     SERIFS = [
         "ＴＯＨＯシネマはエスカレーターで２階に上がって突き当り", # 0,1, はいった
         "ここは、コレド室町1じゃ", # 0,1 はいった
@@ -21,7 +21,7 @@ class CoredoIntroduction(ActionBase):
         super(CoredoIntroduction, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
+        return data["now"] - self._last_running_time > self.REST_DURATION and random.random() > 0
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
