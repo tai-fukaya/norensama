@@ -123,7 +123,7 @@ class Twitter(object):
             for tweet in tweets['statuses']:
                 if self.old_hashtag_created_at == tweet['created_at']:
                     return hashtag_tweet_list
-                hashtag_tweet_list.append(tweet['text'])
+                hashtag_tweet_list.append(tweet['text'].encode('utf-8'))
             self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
             return hashtag_tweet_list
         else:
@@ -139,7 +139,7 @@ class Twitter(object):
             for tweet in timelines:
                 if self.old_mentions_created_at == tweet['created_at']:
                     return mention_tweet_list
-                mention_tweet_list.append(tweet['text'])
+                mention_tweet_list.append(tweet['text'].encode('utf-8'))
             self.old_mentions_created_at = timelines[0]['created_at']
             return mention_tweet_list
         else:
