@@ -1,4 +1,5 @@
 #-*-coding:utf-8-*-
+from datetime import datetime
 import random
 import threading
 import time
@@ -53,6 +54,10 @@ class Norensama(object):
             # CoredoAnswerSize(self._speaker),
             # CoredoAnswerToshi(self._speaker),
             # FollowThankyou(self._speaker),
+            # # 風の音系
+            # Soyosoyo(self._speaker),
+            # Yurayura(self._speaker),
+            # Byubyu(self._speaker),
             # 日付
             Today(self._speaker),
             # 天気
@@ -64,11 +69,21 @@ class Norensama(object):
             WeatherRainyTomorrow(self._speaker),
             WeatherSunnyTomorrow(self._speaker),
             WeatherCloudyTomorrow(self._speaker),
-            # # 風の音系
-            # Soyosoyo(self._speaker),
-            # Yurayura(self._speaker),
-            # Byubyu(self._speaker),
         ]
+
+        day = datetime.now().day
+        if day == 3:
+            self._actions.append(Day1103(self._speaker))
+        elif day == 9:
+            self._actions.append(Day1109(self._speaker))
+            self._actions.append(Day1109Restaurant(self._speaker))
+        elif day == 10:
+            self._actions.append(Day1110(self._speaker))
+            self._actions.append(Day1110Restaurant(self._speaker))
+            self._actions.append(DaySorry(self._speaker))
+        elif day == 11:
+            self._actions.append(Day1111(self._speaker))
+            self._actions.append(DaySorry(self._speaker))
 
         # セリフの強制実行
         self._force_speak_action = ForceSpeak(self._speaker)

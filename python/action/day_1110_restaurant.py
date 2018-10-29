@@ -4,19 +4,20 @@ import time
 
 from action_base import ActionBase
 
-class Month11day3(ActionBase):
+class Day1110Restaurant(ActionBase):
 
-    REST_DURATION = 30.
+    REST_DURATION = 15. * 60.
     SERIFS = [
-        "今日は福徳の森で日本酒祭があるんじゃ。オイラも行きたいぞ！", # 11/3 20min
+        "今日のレストラン営業は、22時までじゃ",
     ]
 
     def __init__(self, speaker):
-        super(Month11day3, self).__init__(speaker)
+        super(Day1110Restaurant, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
-        #11月3日
+        duration = data["now"] - self._last_running_time
+        hour = data["datetime"].hour
+        return hour >= 18 and duration > self.REST_DURATION and random.random() > 0
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]
