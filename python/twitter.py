@@ -29,21 +29,16 @@ class Twitter(object):
 
         self.old_retweet_count = 0
         self.old_followers_count = 0
-        self.old_message = ""
         self.old_mentions_created_at = ""
         self.old_hashtag_created_at = ""
 
 
     def tweet(self, message):
         # 投稿できる上限は、3時間に300ツイートまで
-        if self.old_message == message:
-            print("前回と同じ内容はつぶやけません。")
-            return
         params = {"status": message}
         res = self._session.post(TWEET_POST_URL, params = params)
         if res.status_code == 200:
             print("Text:{}".format(message))
-            self.old_message = message
         else:
             print("Tweet Failed. : %d"% res.status_code)
 

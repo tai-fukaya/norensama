@@ -12,12 +12,27 @@ class TwitterManager(object):
         self._mention_messages = []
 
         self._tweet_messages = []
+        self._tweet_hourly_messages = []
+        self.last_tweet_time = 0.0
+        self.last_hourly_message_time = time.time()
 
     def tweet(self, message):
-        # FIXME 直近１時間で、すでに投稿したものかどうかチェックし、その場合、投稿はしない
-        # １時間の制限になりそうな場合も、投稿しない
-        # tweet 100times/1min
-        self._tweet_messages.append(message)
+        # tweet 100times/1hour  1time/37.5sec
+        if time.time() - self.last_tweet_time > 40.:
+            if message in self._tweet_hourly_messages:
+                print("一時間以内に投稿されたメッセージです。")
+                return
+            else:
+                self._tweet_messages.append(message)
+                self._tweet_hourly_messages.append(message)
+                print(self._tweet_hourly_messages)
+                self.last_tweet_time = time.time()
+
+        if time.time() - self.last_hourly_message_time > 3600.:
+            print("1時間前に追加したメッセージを削除")
+            print(self._tweet_hourly_messages[0])
+            self._tweet_hourly_messages.pop(0)
+            self.last_hourly_message_time += 40.
 
     def update(self):
         last_tweet_time = 0.0
@@ -29,11 +44,10 @@ class TwitterManager(object):
             # tweet
             tweet_messages = self._tweet_messages
             self._tweet_messages = []
-            if len(tweet_messages) and time.time() - last_tweet_time > 30.:
-                # 期間を調整する
-                self._twitter.tweet(tweet_messages[0])
-                last_tweet_time = time.time()
-            # FIXME 以下、取得タイミングは調整して
+            if len(tweet_messages):
+                for m in tweet_messages:
+                    self._twitter.tweet(m)
+
             # RT 75times/15min
             if time.time() - last_retweet_time > 20.:
                 # self._has_retweet = self._has_retweet or self._twitter.has_retweet()
@@ -45,7 +59,6 @@ class TwitterManager(object):
             # hash 180times/15min
             if time.time() - last_hashtag_time > 10.:
                 self._hashtag_messages.extend(self._twitter.get_hashtags("のれんさま"))
-                print(self._hashtag_messages)
                 last_hashtag_time = time.time()
             # mention 75times/15min
             if time.time() - last_mention_time > 6.:
