@@ -27,7 +27,7 @@ class Twitter(object):
             self.access_token, self.access_token_secret
         )
 
-        self.followers_count = 0
+        self.old_followers_count = 0
         self.old_message = ""
         self.old_mentions_created_at = ""
         self.old_hashtag_created_at = ""
@@ -83,22 +83,24 @@ class Twitter(object):
             print("Success.")
             user = json.loads(res.text)
             print(user['followers_count'])
-            if user['followers_count'] > self.followers_count:
+            if user['followers_count'] > self.old_followers_count:
                 print("前回からフォロワー数が増えました。")
-                self.followers_count = user['followers_count']
-                return True
+                diff_count = user['followers_count'] - self.old_followers_count
+                self.old_followers_count = user['followers_count']
+                return diff_count
 
-            elif user['followers_count'] < self.followers_count:
+            elif user['followers_count'] < self.old_followers_count:
                 print("前回からフォロワー数が減りました。")
-                self.followers_count = user['followers_count']
-                return False
+                diff_count = user['followers_count'] - self.old_followers_count
+                self.old_followers_count = user['followers_count']
+                return diff_count
 
             else:
                 print("前回とフォロワー数が変わりません。")
-                return False
+                diff_count = user['followers_count'] - self.old_followers_count
+                return diff_count
         else:
             print("Failed. : %d"% res.status_code)
-            return False
 
 
     def hashtag_retrive(self,hashtag):
