@@ -4,21 +4,23 @@ import time
 
 from action_base import ActionBase
 
-class CoredoAnswerAisatsu(ActionBase):
+class TwitterGreeting(ActionBase):
 
     # 5min
-    REST_DURATION = 5. * 60.
+    REST_DURATION = 1. * 60.
     SERIFS = [
         "こんにちは",
     ]
 
     def __init__(self, speaker):
-        super(CoredoAnswerAisatsu, self).__init__(speaker)
+        super(TwitterGreeting, self).__init__(speaker)
 
     def check(self, data):
-        
-        return data["now"] - self._last_running_time > self.REST_DURATION
+        mentions = data["twitter"]["mentions"]
+        duration = data["now"] - self._last_running_time
+        search_results = [x for x in ["こんにちは", "こんにちわ"] if x in mentions]
         #ツイッターでこんにちはと言われたら
+        return duration > self.REST_DURATION and len(search_results)
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

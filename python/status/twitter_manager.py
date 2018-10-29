@@ -81,5 +81,5 @@ class TwitterManager(object):
             "retweet": has_retweet,
             "follower": has_follower,
             "hashtag": len(hashtag_messages) > 0,
-            "mentions": mention_messages
+            "mentions": ",".join(mention_messages)
         }

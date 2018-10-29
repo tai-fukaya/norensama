@@ -4,19 +4,23 @@ import time
 
 from action_base import ActionBase
 
-class CoredoAnswerSonota(ActionBase):
+class TwitterNormal(ActionBase):
 
-    REST_DURATION = 30.
+    # 1min
+    REST_DURATION = 1. * 60.
     SERIFS = [
         "よく聞こえんかったの〜",
     ]
 
     def __init__(self, speaker):
-        super(CoredoAnswerSonota, self).__init__(speaker)
+        super(TwitterNormal, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
+        mentions = data["twitter"]["mentions"]
+        duration = data["now"] - self._last_running_time
+
         #ツイッターでよくわからないことを言われたら
+        return duration > self.REST_DURATION and len(mentions)
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

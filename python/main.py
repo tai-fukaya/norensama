@@ -32,8 +32,18 @@ class Norensama(object):
             "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET,
         })
         self._twitter_manager = TwitterManager(self._twitter)
-
         self._status = StatusManager()
+
+        self._twitter_actions = [
+            TwitterDirtyWords(self._speaker),
+            TwitterGreeting(self._speaker),
+            TwitterHanashi(self._speaker),
+            TwitterHowOld(self._speaker),
+            TwitterIkku(self._speaker),
+            TwitterNormal(self._speaker),
+            TwitterSize(self._speaker),
+            TwitterWhoAreYou(self._speaker),
+        ]
         self._actions = [
             # あいさつ
             TimeSignal(self._speaker),
@@ -44,16 +54,6 @@ class Norensama(object):
             # CoredoIntroductionNight(self._speaker),
             # # クソウンチク
             # CoredoBoyaki(self._speaker),
-            # # ツイッター
-            # CoredoAnswerHanashi(self._speaker),
-            # CoredoAnswerAisatsu(self._speaker),
-            # CoredoAnswerSonota(self._speaker),
-            # CoredoAnswerDare(self._speaker),
-            # CoredoAnswerIkku(self._speaker),
-            # CoredoAnswerGehin(self._speaker),
-            # CoredoAnswerSize(self._speaker),
-            # CoredoAnswerToshi(self._speaker),
-            # FollowThankyou(self._speaker),
             # # 風の音系
             # Soyosoyo(self._speaker),
             # Yurayura(self._speaker),
@@ -111,10 +111,20 @@ class Norensama(object):
                 message = self._force_speak_action.run(data)
                 self._twitter_manager.tweet(message)
 
-            print("search action")
+            # ツイッター反応系
+            tw_runable_action = [x for x in self._twitter_actions if x.check(data)]
+            if tw_runable_action:
+                print("twitter action")
+                start = time.time()
+                idx = int(random.random()*len(tw_runable_action))
+                message = tw_runable_action[idx].run(data)
+                self._twitter_manager.tweet(message)
+                print(time.time() - start)
+            
             # このタイミングで、反応があると、ちがうこともいう
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
+                print("action")
                 start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run(data)
