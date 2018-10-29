@@ -8,7 +8,9 @@ import _secret as config
 from status import StatusManager, TwitterManager
 from twitter import Twitter
 
-from speaker import Speaker
+# from pyaudio_speaker import Speaker
+from pydub_speaker import Speaker
+
 from ifttt import Ifttt
 # Action
 from action import *
@@ -80,7 +82,6 @@ class Norensama(object):
 
         # セリフの強制実行
         self._force_speak_action = ForceSpeak(self._speaker)
-
         self._blow_action_index = 1
 
     def main(self):

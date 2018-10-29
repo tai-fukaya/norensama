@@ -2,6 +2,7 @@
 import os
 import wave
 import pyaudio
+import time
 
 CHUNK = 1024
 
