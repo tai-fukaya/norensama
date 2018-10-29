@@ -28,17 +28,21 @@ class Twitter(object):
         )
 
         self.followers_count = 0
+        self.old_message = ""
+        self.old_mentions_created_at = ""
 
 
     def tweet(self, message):
         # 投稿できる上限は、3時間に300ツイートまで
+        if self.old_message == message:
+            print("前回と同じ内容はつぶやけません。")
+            return
         params = {"status": message}
         res = self._session.post(TWEET_POST_URL, params = params)
-        print(res)
-        if res.status_code == 200: #正常投稿出来た場合
-            print("Tweet Success.")
+        if res.status_code == 200:
             print("Text:{}".format(message))
-        else: #正常投稿出来なかった場合
+            self.old_message = message
+        else:
             print("Tweet Failed. : %d"% res.status_code)
 
     def destroy_tweet(self,count):
@@ -54,8 +58,6 @@ class Twitter(object):
                 print('----------------------------------------------------')
         else:
             print("削除できるツイートがありません。 : %d"% res.status_code)
-
-
 
     def retweet_retrive(self):
         # 探索できる上限は、15分に75回まで
@@ -102,29 +104,31 @@ class Twitter(object):
         # 探索できる上限は、15分に180回まで
         params = {"q": "#" + hashtag, "count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(HASHTAG_RETRIVE_URL , params = params)
-        if res.status_code == 200: #正常に通信ができた場合
+        if res.status_code == 200:
             print("Success.")
-            tweets = json.loads(res.text) #レスポンスからリツイートリストを取得
-            for tweet in tweets['statuses']: #リツイートリストをループ処理
+            tweets = json.loads(res.text)
+            for tweet in tweets['statuses']:
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
                 print('*******************************************')
-        else: #正常に通信ができなかった場合
+        else: 
             print("Failed. : %d"% res.status_code)
 
     def mentions_timeline(self):
-        # reload(sys)
-        # sys.setdefaultencoding('utf-8')
+        # 探索できる上限は、15分に75回まで
         params = {"count": 100} # 取得可能なツイート上限は100まで
         res = self._session.get(MENTIONS_TIMELINE_URL , params = params)
-        if res.status_code == 200: #正常に通信ができた場合
-            print("Success.")
-            timelines = json.loads(res.text) #レスポンスからリツイートリストを取得
-            for tweet in timelines: #リツイートリストをループ処理
+        mention_tweet = []
+        if res.status_code == 200:
+            timelines = json.loads(res.text)
+            for tweet in timelines:
+                if self.old_mentions_created_at == tweet['created_at']:
+                    return mention_tweet
                 print(tweet['user']['name']+'::'+tweet['text'])
                 print(tweet['created_at'])
                 print('*******************************************')
-                    # else:
-                    #     print("よく聞こえなかったのう")
-        else: #正常に通信ができなかった場合
+                mention_tweet.append(tweet['text'])
+            self.old_mentions_created_at = timelines[0]['created_at']
+            return mention_tweet
+        else:
             print("Failed. : %d"% res.status_code)
