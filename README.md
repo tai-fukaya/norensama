@@ -11,8 +11,7 @@ https://nihonbashi-beta.jp/
 cd nodejs
 npm install
 cd ../python
-apt update
-apt install python-pyaudio
+brew install ffmpeg --with-libvorbis --with-ffplay --with-theora
 pip install -r requirements.txt
 ```
 

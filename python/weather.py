@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+# https://darksky.net/dev/docs
 from forecastiopy import *
 
 NIHONBASHI = [35.686819 , 139.774212]
@@ -10,6 +11,7 @@ class Weather(object):
         self.fio = ForecastIO.ForecastIO(self.api_key, latitude=NIHONBASHI[0], longitude=NIHONBASHI[1])
 
     def get_current_weather(self):
+        # clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
         current = FIOCurrently.FIOCurrently(self.fio)
         return current.icon
 

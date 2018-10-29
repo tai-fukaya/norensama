@@ -8,7 +8,7 @@ class FollowThankyou(ActionBase):
 
     REST_DURATION = 30.
     SERIFS = [
-        "フォローありがとうなのじゃ",
+        "フォローありがとうなのじゃ", # やらない
     ]
 
     def __init__(self, speaker):

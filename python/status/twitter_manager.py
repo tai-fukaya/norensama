@@ -35,6 +35,7 @@ class TwitterManager(object):
             self.last_hourly_message_time += 40.
 
     def update(self):
+        last_tweet_time = 0.0
         last_retweet_time = 0.0
         last_follower_time = 0.0
         last_hashtag_time = 0.0
@@ -52,7 +53,7 @@ class TwitterManager(object):
                 # self._has_retweet = self._has_retweet or self._twitter.has_retweet()
                 last_retweet_time = time.time()
             # Follower 900times/15min
-            if time.time() - last_follower_time > 2.:
+            if time.time() - last_follower_time > 10.:
                 self._has_follower = self._has_follower or self._twitter.has_follower()
                 last_follower_time = time.time()
             # hash 180times/15min
