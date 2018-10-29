@@ -15,12 +15,13 @@ class Speaker(object):
         self._audio.terminate()
 
     def say(self, file_name):
+        start = time.time()
         file_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             "data/_secret_wav",
             "{}.wav".format(file_name)
         )
-        print(file_path)
+        print(file_name)
         wf = wave.open(file_path, 'rb')
 
         stream = self._audio.open(
@@ -29,6 +30,7 @@ class Speaker(object):
             rate=wf.getframerate(),
             output=True)
 
+        print(time.time() - start)
         data = wf.readframes(CHUNK)
 
         while data != '':
@@ -37,3 +39,4 @@ class Speaker(object):
 
         stream.stop_stream()
         stream.close()
+        print(time.time() - start)
