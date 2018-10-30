@@ -7,6 +7,10 @@ from .day_1110 import Day1110
 from .day_1110_restaurant import Day1110Restaurant
 from .day_1111 import Day1111
 from .day_sorry import DaySorry
+from .byebye import Byebye
+from .hello import Hello
+from .hello_door import HelloDoor
+from .hello_guide import HelloGuide
 from .greeting_commuter import GreetingCommuter
 from .introduction_coredo import IntroductionCoredo
 from .introduction_hungry_lunch import IntroductionHungryLunch

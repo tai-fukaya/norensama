@@ -50,6 +50,10 @@ class Norensama(object):
             GreetingCommuter(self._speaker),
             SoLonely(self._speaker),
             Ghost(self._speaker),
+            Byebye(self._speaker),
+            Hello(self._speaker),
+            HelloDoor(self._speaker),
+            HelloGuide(self._speaker),
             # コレド紹介
             IntroductionCoredo(self._speaker),
             IntroductionNight(self._speaker),
@@ -81,10 +85,10 @@ class Norensama(object):
         elif day == 10:
             self._actions.append(Day1110(self._speaker))
             self._actions.append(Day1110Restaurant(self._speaker))
-            self._actions.append(DaySorry(self._speaker))
+            # self._actions.append(DaySorry(self._speaker))
         elif day == 11:
             self._actions.append(Day1111(self._speaker))
-            self._actions.append(DaySorry(self._speaker))
+            # self._actions.append(DaySorry(self._speaker))
 
         # セリフの強制実行
         self._force_speak_action = ForceSpeak(self._speaker)
