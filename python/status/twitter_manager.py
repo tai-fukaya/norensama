@@ -35,7 +35,6 @@ class TwitterManager(object):
             self._last_hourly_message_time += 40.
 
     def update(self):
-        last_tweet_time = 0.0
         last_retweet_time = 0.0
         last_follower_time = 0.0
         last_hashtag_time = 0.0
@@ -44,10 +43,8 @@ class TwitterManager(object):
             # tweet
             tweet_messages = self._tweet_messages
             self._tweet_messages = []
-            if len(tweet_messages) and time.time() - last_tweet_time > 30.:
-                # 期間を調整する
+            if len(tweet_messages):
                 self._twitter.tweet(tweet_messages[0])
-                last_tweet_time = time.time()
 
             # RT 75times/15min
             if time.time() - last_retweet_time > 20.:
