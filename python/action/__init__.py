@@ -24,6 +24,8 @@ from .ghost import Ghost
 from .follow_thankyou import FollowThankyou
 from .today import Today
 from .twitter_dirty_words import TwitterDirtyWords
+from .twitter_hey import TwitterHey
+from .twitter_favorite import TwitterFavorite
 from .twitter_greeting import TwitterGreeting
 from .twitter_hanashi import TwitterHanashi
 from .twitter_how_old import TwitterHowOld

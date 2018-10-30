@@ -44,6 +44,8 @@ class Norensama(object):
             TwitterNormal(self._speaker),
             TwitterSize(self._speaker),
             TwitterWhoAreYou(self._speaker),
+            TwitterHey(self._speaker),
+            TwitterFavorite(self._speaker),
         ]
         self._actions = [
             # あいさつ
