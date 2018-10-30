@@ -48,7 +48,10 @@ class Norensama(object):
             # あいさつ
             TimeSignal(self._speaker),
             GreetingCommuter(self._speaker),
+            SoLonely(self._speaker),
+            Ghost(self._speaker),
             # コレド紹介
+            IntroductionCoredo(self._speaker),
             IntroductionNight(self._speaker),
             IntroductionHungryLunch(self._speaker),
             IntroductionHungryNight(self._speaker),

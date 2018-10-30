@@ -8,9 +8,12 @@ from .day_1110_restaurant import Day1110Restaurant
 from .day_1111 import Day1111
 from .day_sorry import DaySorry
 from .greeting_commuter import GreetingCommuter
+from .introduction_coredo import IntroductionCoredo
 from .introduction_hungry_lunch import IntroductionHungryLunch
 from .introduction_hungry_night import IntroductionHungryNight
 from .introduction_night import IntroductionNight
+from .so_lonely import SoLonely
+from .ghost import Ghost
 from .follow_thankyou import FollowThankyou
 from .today import Today
 from .twitter_dirty_words import TwitterDirtyWords
