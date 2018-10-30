@@ -4,11 +4,10 @@ import time
 
 from action_base import ActionBase
 
-class CoredoIntroductionLunch(ActionBase):
+class IntroductionHungryLunch(ActionBase):
 
-    REST_DURATION = 30.
+    REST_DURATION = 3. * 60.
     SERIFS = [
-        "おなかすいたんじゃ", # 人がいる
         "お腹すいたのぅ、のれんはくわねど高楊枝じゃ", # 11:30 - 13:00 人がいる、0入った
         "ごはんたべにきたんか？", # 11:30 - 13:00 人がいる、0入った
         "ランチ何にする？", # 11:30 - 13:00 人がいる、0入った
@@ -20,11 +19,15 @@ class CoredoIntroductionLunch(ActionBase):
     ]
 
     def __init__(self, speaker):
-        super(CoredoIntroductionLunch, self).__init__(speaker)
+        super(IntroductionHungryLunch, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
-        #１１時３０分〜13時＋人がいる時
+        # 11:00 - 13:00、人がいる
+        duration = data["now"] - self._last_running_time
+        hour = data["datetime"].hour
+        is_exist = [x for x in data["tracking"] if x.get("status") > 0]
+
+        return duration > self.REST_DURATION and hour >= 11 and hour < 13 and is_exist and random.random() > .6
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

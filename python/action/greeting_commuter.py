@@ -4,19 +4,23 @@ import time
 
 from action_base import ActionBase
 
-class CoredoIntroductionAM9(ActionBase):
+class GreetingCommuter(ActionBase):
 
-    REST_DURATION = 30.
+    REST_DURATION = 60.
     SERIFS = [
         "通勤のみなさん、いつもご苦労様じゃ", # 11時前、出た、入った
     ]
 
     def __init__(self, speaker):
-        super(CoredoIntroductionAM9, self).__init__(speaker)
+        super(GreetingCommuter, self).__init__(speaker)
 
     def check(self, data):
-        return random.random() > 0
-        #朝9時から10時+人が通った時
+        # 11時前、出た、入った
+        duration = data["now"] - self._last_running_time
+        hour = data["datetime"].hour
+        is_out_or_in = sum(data["motions"]) > 0
+
+        return duration > self.REST_DURATION and hour < 11 and is_out_or_in and random.random() > .3
 
     def run(self, data):
         serif = self.SERIFS[int(random.random()*len(self.SERIFS))]

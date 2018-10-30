@@ -21,6 +21,9 @@ python main.py
 node index.js
 ```
 
+# Human Intelligence
+http://{pc_ip}:8000
+
 # Credit
 Ryosuke Fujiki  
 Taiji Fukaya  

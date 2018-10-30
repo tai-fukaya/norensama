@@ -47,13 +47,11 @@ class Norensama(object):
         self._actions = [
             # あいさつ
             TimeSignal(self._speaker),
+            GreetingCommuter(self._speaker),
             # コレド紹介
-            CoredoIntroduction(self._speaker),
-            # CoredoIntroductionAM9(self._speaker),
-            # CoredoIntroductionLunch(self._speaker),
-            # CoredoIntroductionNight(self._speaker),
-            # # クソウンチク
-            # CoredoBoyaki(self._speaker),
+            IntroductionNight(self._speaker),
+            IntroductionHungryLunch(self._speaker),
+            IntroductionHungryNight(self._speaker),
             # # 風の音系
             # Soyosoyo(self._speaker),
             # Yurayura(self._speaker),
