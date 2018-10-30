@@ -19,6 +19,9 @@ class TwitterNormal(ActionBase):
         mentions = data["twitter"]["mentions"]
         duration = data["now"] - self._last_running_time
 
+        if mentions:
+            print("message!")
+            print(mentions)
         #ツイッターでよくわからないことを言われたら
         return duration > self.REST_DURATION and len(mentions)
 
