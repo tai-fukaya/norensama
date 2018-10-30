@@ -17,6 +17,9 @@ class Speaker(object):
             "data/_secret_wav",
             "{}.wav".format(file_name)
         )
+        if not os.path.exists(file_path):
+            print("this file does not exist:{}".format(file_name))
+            return
         print(file_name)
         sound = pydub.AudioSegment.from_file(file_path, "wav")
         print(time.time() - start)
