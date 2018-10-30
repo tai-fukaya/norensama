@@ -39,3 +39,6 @@ from .weather_sunny import WeatherSunny
 from .weather_rainy_tomorrow import WeatherRainyTomorrow
 from .weather_sunny_tomorrow import WeatherSunnyTomorrow
 from .weather_cloudy_tomorrow import WeatherCloudyTomorrow
+from .wind_byubyu import WindByubyu
+from .wind_soyosoyo import WindSoyosoyo
+from .wind_yurayura import WindYurayura

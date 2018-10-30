@@ -62,10 +62,10 @@ class Norensama(object):
             IntroductionNight(self._speaker),
             IntroductionHungryLunch(self._speaker),
             IntroductionHungryNight(self._speaker),
-            # # 風の音系
-            # Soyosoyo(self._speaker),
-            # Yurayura(self._speaker),
-            # Byubyu(self._speaker),
+            # 風の音系
+            WindSoyosoyo(self._speaker),
+            WindYurayura(self._speaker),
+            WindByubyu(self._speaker),
             # 日付
             Today(self._speaker),
             # 天気
@@ -128,6 +128,7 @@ class Norensama(object):
             tw_runable_action = [x for x in self._twitter_actions if x.check(data)]
             if tw_runable_action:
                 print("twitter action")
+                self._speaker.say("ringtone")
                 start = time.time()
                 idx = int(random.random()*len(tw_runable_action))
                 message = tw_runable_action[idx].run(data)
