@@ -141,7 +141,7 @@ class StatusManager(object):
         elif data[0] == 'serif_list':
             server.send_message(client, ",".join(self._serif_names))
         elif data[0] == 'serif':
-            self._force_serif = data[1]
+            self._force_serif = data[1].encode('utf-8')
         else:
             print(message)
     
