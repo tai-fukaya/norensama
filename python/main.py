@@ -96,6 +96,16 @@ class Norensama(object):
         # セリフの強制実行
         self._force_speak_action = ForceSpeak(self._speaker)
         self._blow_action_index = 1
+    
+    def exec_node(self, ip):
+        print("eexec node", ip)
+        import subprocess
+        import os
+        file_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../nodejs/index.js"
+        )
+        subprocess.call(["node", file_path])
 
     def main(self):
         print("main")
@@ -105,6 +115,12 @@ class Norensama(object):
         twitter_thread = threading.Thread(target=self._twitter_manager.update)
         twitter_thread.daemon = True
         twitter_thread.start()
+
+        # node js
+        time.sleep(3.)
+        node_thread = threading.Thread(target=self.exec_node)
+        node_thread.daemon = True
+        node_thread.start()
 
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 
