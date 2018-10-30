@@ -11,6 +11,9 @@ from .byebye import Byebye
 from .hello import Hello
 from .hello_door import HelloDoor
 from .hello_guide import HelloGuide
+from .talk import Talk
+from .talk_door import TalkDoor
+from .talk_guide import TalkGuide
 from .greeting_commuter import GreetingCommuter
 from .introduction_coredo import IntroductionCoredo
 from .introduction_hungry_lunch import IntroductionHungryLunch

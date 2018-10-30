@@ -54,6 +54,9 @@ class Norensama(object):
             Hello(self._speaker),
             HelloDoor(self._speaker),
             HelloGuide(self._speaker),
+            Talk(self._speaker),
+            TalkDoor(self._speaker),
+            TalkGuide(self._speaker),
             # コレド紹介
             IntroductionCoredo(self._speaker),
             IntroductionNight(self._speaker),
