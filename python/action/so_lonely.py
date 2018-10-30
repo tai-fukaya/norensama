@@ -7,7 +7,7 @@ from action_base import ActionBase
 class SoLonely(ActionBase):
 
     # 10min
-    REST_DURATION = 10 * 60.
+    REST_DURATION = 5 * 60.
     SERIFS = [
         "みんなのれんが喋っているとは、思わんじゃろーなー",
         "肩こるなー、肩ないけどね",

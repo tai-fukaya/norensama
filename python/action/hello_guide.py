@@ -7,7 +7,7 @@ from action_base import ActionBase
 class HelloGuide(ActionBase):
 
     # 1min
-    REST_DURATION = 60.
+    REST_DURATION = 2 * 60.
     SERIFS = [
         "のれんクーイズ！家の軒下、店の上部に横に長く張られたのれんを何のれんという？正解は水引きのれん！",
         "のれんクーイズ！切り込みの垂れをつけず、大風呂敷のような一枚布で、上端を軒先に、下端を道路側にせり出させて固定したのれんを何のれんという？",

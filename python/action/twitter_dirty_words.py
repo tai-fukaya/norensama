@@ -7,7 +7,7 @@ from action_base import ActionBase
 class TwitterDirtyWords(ActionBase):
 
     # 1min
-    REST_DURATION = 1. * 60.
+    REST_DURATION = 3. * 60.
     SERIFS = [
         "日本橋を歩く者は上品でないとな",
     ]
