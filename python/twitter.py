@@ -120,11 +120,15 @@ class Twitter(object):
         hashtag_tweet_list = []
         if res.status_code == 200:
             tweets = json.loads(res.text)
+            # print(tweets)
             for tweet in tweets['statuses']:
                 if self.old_hashtag_created_at == tweet['created_at']:
+                    self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
                     return hashtag_tweet_list
                 hashtag_tweet_list.append(tweet['text'].encode('utf-8'))
             self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
+            print len(hashtag_tweet_list)
+            print hashtag_tweet_list
             return hashtag_tweet_list
         else:
             print("Failed. : %d"% res.status_code)
@@ -138,6 +142,7 @@ class Twitter(object):
             timelines = json.loads(res.text)
             for tweet in timelines:
                 if self.old_mentions_created_at == tweet['created_at']:
+                    self.old_mentions_created_at = timelines[0]['created_at']
                     return mention_tweet_list
                 mention_tweet_list.append(tweet['text'].encode('utf-8'))
             self.old_mentions_created_at = timelines[0]['created_at']
