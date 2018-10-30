@@ -6,6 +6,15 @@ Future Noren Exhibition
 at Nihonbashi, Tokyo, Japan  
 https://nihonbashi-beta.jp/
 
+# What is Norensama
+コレド室町は、日本橋の賑わいの中心、
+入り口の大きな暖簾は、日本橋の街を、人を、モノを見守ってきました。
+その大きな暖簾が意思を持ち、来る人に語りかけます。
+
+「のれんさま」の声に耳を傾けてみてください。
+
+のれんさまの気持ち、コレド室町のこと、日本橋のこと、たくさんのお言葉をいただけます。
+
 # How to install
 ```
 cd nodejs
