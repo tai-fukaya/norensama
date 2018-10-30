@@ -21,7 +21,8 @@ class Accelerometer(object):
 
 class StatusManager(object):
 
-    def __init__(self):
+    def __init__(self, ip):
+        self._ip = ip
         self._serif_names = []
         self._now = time.time()
         self._datetime_now = datetime.now()
@@ -59,7 +60,7 @@ class StatusManager(object):
         self._force_serif = ""
         self._force_action = ""
 
-        self._server = WebsocketServer(host='127.0.0.1', port=6700)
+        self._server = WebsocketServer(host=self._ip, port=6700)
         self._server.set_fn_new_client(self.new_client)
         self._server.set_fn_client_left(self.client_left)
         self._server.set_fn_message_received(self.message_received)

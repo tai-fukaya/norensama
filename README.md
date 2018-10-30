@@ -17,8 +17,7 @@ pip install -r requirements.txt
 
 # How to execute
 ```
-python main.py
-node index.js
+python main.py <pc_ip>
 ```
 
 # Human Intelligence

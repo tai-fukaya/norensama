@@ -95,10 +95,10 @@ app.use(express.static(__dirname + '/server'));
 app.use(serveIndex(__dirname + '/server', {icons: true}));
 const PORT = 8000;
 app.listen(PORT);
-console.log(require('os').networkInterfaces().en0[1].address, PORT);
-// TODO Facebook messanger にIPを流す
 
-let client = new WebSocketClient('ws://localhost:6700');
+let ip = process.argv[2] || '127.0.0.1';
+
+let client = new WebSocketClient(`ws://${ip}:6700`);
 let oscClient = new osc.Client("127.0.0.1", 12000);
 
 // 店舗案内側

@@ -20,7 +20,8 @@ from action.blow import Yurayura, Soyosoyo, Byubyu
 
 class Norensama(object):
 
-    def __init__(self):
+    def __init__(self, ipaddr):
+        self._ip = ipaddr
         self._speaker = Speaker()
         self._ifttt = Ifttt({
             "api_key": config.IFTTT_APIKEY
@@ -32,7 +33,7 @@ class Norensama(object):
             "access_token_secret": config.TWITTER_ACCESS_TOKEN_SECRET,
         })
         self._twitter_manager = TwitterManager(self._twitter)
-        self._status = StatusManager()
+        self._status = StatusManager(self._ip)
 
         self._twitter_actions = [
             TwitterDirtyWords(self._speaker),
@@ -97,15 +98,14 @@ class Norensama(object):
         self._force_speak_action = ForceSpeak(self._speaker)
         self._blow_action_index = 1
     
-    def exec_node(self, ip):
-        print("eexec node", ip)
+    def exec_node(self):
         import subprocess
         import os
         file_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             "../nodejs/index.js"
         )
-        subprocess.call(["node", file_path])
+        subprocess.call(["node", file_path, self._ip])
 
     def main(self):
         print("main")
@@ -157,5 +157,10 @@ class Norensama(object):
                 self._twitter_manager.tweet(message)
     
 if __name__ == "__main__":
-    noren = Norensama()
+    import sys
+    arg = sys.argv
+    ip = "127.0.0.1"
+    if len(arg) > 1:
+        ip = arg[1]
+    noren = Norensama(ip)
     noren.main()
