@@ -25,6 +25,7 @@ class MotionSensorObniz {
     start(wsc, configs) {
         this.wsc = wsc;
         this.obniz.onconnect = async () => {
+            this.statuses = [];
             for (let i in configs) {
                 let config = configs[i];
                 this.statuses.push("");

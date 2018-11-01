@@ -118,11 +118,11 @@ class Norensama(object):
         twitter_thread.daemon = True
         twitter_thread.start()
 
-        # node js
-        time.sleep(3.)
-        node_thread = threading.Thread(target=self.exec_node)
-        node_thread.daemon = True
-        node_thread.start()
+        # # node js
+        # time.sleep(3.)
+        # node_thread = threading.Thread(target=self.exec_node)
+        # node_thread.daemon = True
+        # node_thread.start()
 
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 

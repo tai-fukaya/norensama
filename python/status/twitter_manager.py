@@ -30,8 +30,8 @@ class TwitterManager(object):
 
         if time.time() - self._last_hourly_message_time > 3600.:
             print("1時間前に追加したメッセージを削除")
-            print(self._tweet_hourly_messages[0])
-            self._tweet_hourly_messages.pop(0)
+            # print(self._tweet_hourly_messages)
+            self._tweet_hourly_messages = []
             self._last_hourly_message_time += 40.
 
     def update(self):

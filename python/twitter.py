@@ -62,7 +62,7 @@ class Twitter(object):
         res = self._session.get(RETWEET_RETRIVE_URL, params = params)
         self.retweet_count = 0
         if res.status_code == 200:
-            print("Success.")
+            print("RT Success.")
             retweets = json.loads(res.text)
             for tweet in retweets:
                 self.retweet_count += int(tweet['retweet_count'])
@@ -110,7 +110,7 @@ class Twitter(object):
             # return diff_count
 
         else:
-            print("Failed. : %d"% res.status_code)
+            print("Follower Failed. : %d"% res.status_code)
 
 
     def get_hashtags(self,hashtag):
@@ -131,7 +131,7 @@ class Twitter(object):
             print hashtag_tweet_list
             return hashtag_tweet_list
         else:
-            print("Failed. : %d"% res.status_code)
+            print("Hashtag Failed. : %d"% res.status_code)
 
     def get_mention_timeline(self):
         # 探索できる上限は、15分に75回まで
@@ -148,4 +148,4 @@ class Twitter(object):
             self.old_mentions_created_at = timelines[0]['created_at']
             return mention_tweet_list
         else:
-            print("Failed. : %d"% res.status_code)
+            print("Timeline Failed. : %d"% res.status_code)
