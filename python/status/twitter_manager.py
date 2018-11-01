@@ -17,6 +17,7 @@ class TwitterManager(object):
         self._last_hourly_message_time = time.time()
 
     def tweet(self, message):
+        # FIXME ここは、すでにツイートしたかどうかだけ判断する
         # tweet 100times/1hour  1time/37.5sec
         if time.time() - self._last_tweet_time > 40.:
             if message in self._tweet_hourly_messages:
@@ -41,6 +42,7 @@ class TwitterManager(object):
         last_mention_time = 0.0
         while True:
             # tweet
+            # FIXME ここで、40秒ごとに最初のメッセージを抜いて、ツイートする
             tweet_messages = self._tweet_messages
             self._tweet_messages = []
             if len(tweet_messages):
