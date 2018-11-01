@@ -138,6 +138,7 @@ class Norensama(object):
                 self._twitter_manager.tweet(message)
                 continue
 
+            # コメントアウトは、ここから
             # メイン
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
@@ -158,6 +159,7 @@ class Norensama(object):
                 message = tw_runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
                 print(time.time() - start)
+            # ここまで
 
     
 if __name__ == "__main__":
