@@ -131,8 +131,14 @@ class Norensama(object):
 
             data = self._status.get_data()
             data["twitter"] = self._twitter_manager.get_data()
+  
+            # 強制起動
+            if self._force_speak_action.check(data):
+                message = self._force_speak_action.run(data)
+                self._twitter_manager.tweet(message)
+                continue
 
-            # センサー反応
+            # メイン
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
                 print("action")
@@ -142,7 +148,7 @@ class Norensama(object):
                 self._twitter_manager.tweet(message)
                 print(time.time() - start)
 
-            # ツイッター反応系
+            # ツイッター
             tw_runable_action = [x for x in self._twitter_actions if x.check(data)]
             if tw_runable_action:
                 print("twitter action")
@@ -152,11 +158,7 @@ class Norensama(object):
                 message = tw_runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
                 print(time.time() - start)
-  
-            # 強制起動もここでやる
-            if self._force_speak_action.check(data):
-                message = self._force_speak_action.run(data)
-                self._twitter_manager.tweet(message)
+
     
 if __name__ == "__main__":
     import sys
