@@ -32,7 +32,7 @@ class TwitterManager(object):
             print("1時間前に追加したメッセージを削除")
             # print(self._tweet_hourly_messages)
             self._tweet_hourly_messages = []
-            self._last_hourly_message_time += 40.
+            self._last_hourly_message_time = time.time()
 
     def update(self):
         last_retweet_time = 0.0
@@ -51,20 +51,18 @@ class TwitterManager(object):
             #     self._has_retweet = self._has_retweet or self._twitter.has_retweet()
             #     last_retweet_time = time.time()
             # Follower 900times/15min
-            if time.time() - last_follower_time > 10.:
-                self._has_follower = self._has_follower or self._twitter.has_follower()
+            if time.time() - last_follower_time > 30.:
+                self._has_follower = self._twitter.has_follower()
                 last_follower_time = time.time()
             # hash 180times/15min
-            if time.time() - last_hashtag_time > 10.:
+            if time.time() - last_hashtag_time > 30.:
                 hashtags = self._twitter.get_hashtags("のれんさま")
-                if hashtags is not None:
-                    self._hashtag_messages.extend(hashtags)
+                self._hashtag_messages.extend(hashtags)
                 last_hashtag_time = time.time()
             # mention 75times/15min
-            if time.time() - last_mention_time > 6.:
+            if time.time() - last_mention_time > 15.:
                 timeline = self._twitter.get_mention_timeline()
-                if timeline is not None:
-                    self._mention_messages.extend(timeline)
+                self._mention_messages.extend(timeline)
                 last_mention_time = time.time()
             time.sleep(1.)
 
