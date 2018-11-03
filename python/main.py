@@ -143,22 +143,25 @@ class Norensama(object):
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
                 print("action")
-                start = time.time()
+                # start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
-                print(time.time() - start)
+                # print(time.time() - start)
+                time.sleep(5. + random.random() * 5)
+                continue
 
             # ツイッター
             tw_runable_action = [x for x in self._twitter_actions if x.check(data)]
             if tw_runable_action:
                 print("twitter action")
                 self._speaker.say("ringtone")
-                start = time.time()
+                # start = time.time()
                 idx = int(random.random()*len(tw_runable_action))
                 message = tw_runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
-                print(time.time() - start)
+                time.sleep(3.)
+                # print(time.time() - start)
             # ここまで
 
     

@@ -52,15 +52,15 @@ class TwitterManager(object):
             # if time.time() - last_retweet_time > 20.:
             #     self._has_retweet = self._has_retweet or self._twitter.has_retweet()
             #     last_retweet_time = time.time()
-            # Follower 900times/15min
-            if time.time() - last_follower_time > 30.:
-                self._has_follower = self._twitter.has_follower()
-                last_follower_time = time.time()
-            # hash 180times/15min
-            if time.time() - last_hashtag_time > 30.:
-                hashtags = self._twitter.get_hashtags("のれんさま")
-                self._hashtag_messages.extend(hashtags)
-                last_hashtag_time = time.time()
+            # # Follower 900times/15min
+            # if time.time() - last_follower_time > 30.:
+            #     self._has_follower = self._twitter.has_follower()
+            #     last_follower_time = time.time()
+            # # hash 180times/15min
+            # if time.time() - last_hashtag_time > 30.:
+            #     hashtags = self._twitter.get_hashtags("のれんさま")
+            #     self._hashtag_messages.extend(hashtags)
+            #     last_hashtag_time = time.time()
             # mention 75times/15min
             if time.time() - last_mention_time > 15.:
                 timeline = self._twitter.get_mention_timeline()
