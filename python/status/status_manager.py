@@ -169,13 +169,14 @@ class StatusManager(object):
                 elif prev_sensor_status == 0:
                     if current_status == 1:
                         # 1つだけ、反応している
-                        # １のもののインデックス
-                        if current_sensor_information[0].get("status") == 1:
-                            self._human_statuses[i] = 1
-                        elif current_sensor_information[2].get("status") == 1:
-                            self._human_statuses[i] = 2
-                        else:
-                            self._human_statuses[i] = 0
+                        self._human_statuses[i] = 0
+                        # # １のもののインデックス
+                        # if current_sensor_information[0].get("status") == 1:
+                        #     self._human_statuses[i] = 1
+                        # elif current_sensor_information[2].get("status") == 1:
+                        #     self._human_statuses[i] = 2
+                        # else:
+                        #     self._human_statuses[i] = 0
                     else:
                         self._human_statuses[i] = 1
                         # 古い順にふたつとる

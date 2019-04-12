@@ -6,7 +6,7 @@ from action_base import ActionBase
 
 class Day1111(ActionBase):
 
-    REST_DURATION = 50. * 60.
+    REST_DURATION = 30. * 60.
     SERIFS = [
         "未来ののれん展、最終日じゃ。さみしいのう。",
     ]

@@ -6,7 +6,7 @@ from action_base import ActionBase
 
 class TalkDoor(ActionBase):
 
-    REST_DURATION = 60.
+    REST_DURATION = 2 * 60.
     SERIFS = [
         "のれんの、のはノリがよいの、のじゃ",
         "のれんの、れはレインボーの、れじゃ",

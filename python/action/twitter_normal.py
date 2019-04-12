@@ -7,7 +7,7 @@ from action_base import ActionBase
 class TwitterNormal(ActionBase):
 
     # 1min
-    REST_DURATION = 1. * 60.
+    REST_DURATION = 2. * 60.
     SERIFS = [
         "よく聞こえんかったの〜",
     ]

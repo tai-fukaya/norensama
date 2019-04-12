@@ -6,7 +6,7 @@ from action_base import ActionBase
 
 class WeatherSunnyTomorrow(ActionBase):
 
-    REST_DURATION = 40 * 60.
+    REST_DURATION = 30 * 60.
     SERIFS = [
         "明日の天気は、晴れじゃ。たぶん。",
     ]

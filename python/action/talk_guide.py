@@ -6,7 +6,7 @@ from action_base import ActionBase
 
 class TalkGuide(ActionBase):
 
-    REST_DURATION = 60.
+    REST_DURATION = 2 * 60.
     SERIFS = [
         "オイラとじゃんけんせん？　じゃんけーんぽい！あ、負けじゃ",
         "オイラの話は面白いじゃろう。座布団一枚持ってきてくれんか",

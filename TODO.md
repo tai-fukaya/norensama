@@ -96,3 +96,60 @@ http://voicetext.jp/
 https://qiita.com/makaishi2/items/ae83828a711d0d946011
 https://qiita.com/makaishi2/items/ed9d4412331d7d65fde5
 https://qiita.com/makaishi2/items/5c7b1b6a72b6938cf3d2
+
+Exception in thread Thread-3:
+Traceback (most recent call last):
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 810, in __bootstrap_inner
+    self.run()
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 763, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/Users/owner/Documents/norensama/python/status/twitter_manager.py", line 63, in update
+    self._mention_messages.extend(self._twitter.get_mention_timeline())
+TypeError: 'NoneType' object is not iterable
+
+
+Exception in thread Thread-3:
+Traceback (most recent call last):
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 810, in __bootstrap_inner
+    self.run()
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 763, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/Users/owner/Documents/norensama/python/status/twitter_manager.py", line 59, in update
+    hashtags = self._twitter.get_hashtags("のれんさま")
+  File "/Users/owner/Documents/norensama/python/twitter.py", line 127, in get_hashtags
+    self.old_hashtag_created_at = tweets['statuses'][0]['created_at']
+
+events.js:183
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: connect ETIMEDOUT 192.168.128.196:80
+    at Object._errnoException (util.js:1022:11)
+    at _exceptionWithHostPort (util.js:1044:20)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)
+WARNING:websocket_server.websocket_server:Client must always be mas
+
+Exception in thread Thread-3:
+Traceback (most recent call last):
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 810, in __bootstrap_inner
+    self.run()
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py", line 763, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/Users/owner/Documents/norensama/python/status/twitter_manager.py", line 55, in update
+    self._has_follower = self._has_follower or self._twitter.has_follower()
+  File "/Users/owner/Documents/norensama/python/twitter.py", line 90, in has_follower
+    res = self._session.get(USER_PROFILE_URL, params = params)
+  File "/Users/owner/Library/Python/2.7/lib/python/site-packages/requests/sessions.py", line 525, in get
+    return self.request('GET', url, **kwargs)
+  File "/Users/owner/Library/Python/2.7/lib/python/site-packages/requests/sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/owner/Library/Python/2.7/lib/python/site-packages/requests/sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/owner/Library/Python/2.7/lib/python/site-packages/requests/adapters.py", line 495, in send
+    raise ConnectionError(err, request=request)
+ConnectionError: ('Connection aborted.', error(54, 'Connection reset by peer'))
+
+# メリでめ将来性の整理
+社員がウェブ上から任意のどんな言葉でも設定できるように
+声の強弱をいつも同じではないように
+自分が直前に何を言っていたかを覚えている

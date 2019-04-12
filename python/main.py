@@ -118,11 +118,11 @@ class Norensama(object):
         twitter_thread.daemon = True
         twitter_thread.start()
 
-        # node js
-        time.sleep(3.)
-        node_thread = threading.Thread(target=self.exec_node)
-        node_thread.daemon = True
-        node_thread.start()
+        # # node js
+        # time.sleep(3.)
+        # node_thread = threading.Thread(target=self.exec_node)
+        # node_thread.daemon = True
+        # node_thread.start()
 
         self._status.set_serif_names(self._force_speak_action.get_serif_names())
 
@@ -131,32 +131,39 @@ class Norensama(object):
 
             data = self._status.get_data()
             data["twitter"] = self._twitter_manager.get_data()
+  
+            # 強制起動
+            if self._force_speak_action.check(data):
+                message = self._force_speak_action.run(data)
+                self._twitter_manager.tweet(message)
+                continue
 
-            # センサー反応
+            # コメントアウトは、ここから
+            # メイン
             runable_action = [x for x in self._actions if x.check(data)]
             if runable_action:
                 print("action")
-                start = time.time()
+                # start = time.time()
                 idx = int(random.random()*len(runable_action))
                 message = runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
-                print(time.time() - start)
+                # print(time.time() - start)
+                time.sleep(5. + random.random() * 5)
+                continue
 
-            # ツイッター反応系
+            # ツイッター
             tw_runable_action = [x for x in self._twitter_actions if x.check(data)]
             if tw_runable_action:
                 print("twitter action")
                 self._speaker.say("ringtone")
-                start = time.time()
+                # start = time.time()
                 idx = int(random.random()*len(tw_runable_action))
                 message = tw_runable_action[idx].run(data)
                 self._twitter_manager.tweet(message)
-                print(time.time() - start)
-  
-            # 強制起動もここでやる
-            if self._force_speak_action.check(data):
-                message = self._force_speak_action.run(data)
-                self._twitter_manager.tweet(message)
+                time.sleep(3.)
+                # print(time.time() - start)
+            # ここまで
+
     
 if __name__ == "__main__":
     import sys
